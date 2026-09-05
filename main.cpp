@@ -1,10 +1,10 @@
+#include<windows.h>
 #include <glut.h>
+#include "Ground.h"
+#include "Camera.h"
 
-// Camera position
-float camX = 0.0f;
-float camY = 10.0f;
-float camZ = 25.0f;
 
+// For Axes 
 void drawAxes()
 {
     glLineWidth(3);
@@ -29,24 +29,27 @@ void drawAxes()
     glEnd();
 }
 
+// For Grid
 void drawGrid()
 {
     glColor3f(0.5f, 0.5f, 0.5f);
 
     glBegin(GL_LINES);
 
-    for (int i = -50; i <= 50; i++)
-    {
-        glVertex3f((float)i, 0, -50);
+    for (int i = -50; i <= 50; i++){
+        glVertex3f((float)i, 0.0f, -50);
         glVertex3f((float)i, 0, 50);
 
-        glVertex3f(-50, 0, (float)i);
+        glVertex3f(-50, 0.01f, (float)i);
         glVertex3f(50, 0, (float)i);
     }
 
     glEnd();
 }
 
+
+
+// Display Method
 void display()
 {
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
@@ -59,11 +62,18 @@ void display()
         0, 1, 0
     );
 
+    drawGround();
+
+    drawPitchBoundary();
+    drawCenterLine();
+    drawCenterCircle();
+
     drawGrid();
     drawAxes();
 
     glutSwapBuffers();
 }
+
 
 void reshape(int w, int h)
 {
@@ -109,6 +119,7 @@ int main(int argc, char** argv)
 
     glutDisplayFunc(display);
     glutReshapeFunc(reshape);
+	glutKeyboardFunc(keyboard);
 
     glutMainLoop();
 
