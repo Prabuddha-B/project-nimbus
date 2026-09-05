@@ -18,6 +18,8 @@ void drawGround(){
 
     glBegin(GL_POLYGON);
 
+    glNormal3f(0.0f, 1.0f, 0.0f);
+
     for (int angle = 0; angle < 360; angle++)
     {
         float theta = angle * 3.14159f / 180.0f;

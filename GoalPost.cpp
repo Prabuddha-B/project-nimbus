@@ -15,6 +15,15 @@ void drawGoalPost(float x, float z, float height, float radius)
     GLUquadric* quad = gluNewQuadric();
 
     gluQuadricTexture(quad, GL_TRUE);
+    gluQuadricNormals(quad, GLU_SMOOTH);
+
+    GLfloat specular[] =
+    {
+        1.0f,1.0f,1.0f,1.0f
+    };
+
+    glMaterialfv(GL_FRONT, GL_SPECULAR, specular);
+    glMaterialf( GL_FRONT, GL_SHININESS, 80.0f);
 
   
     // Pole
@@ -92,6 +101,8 @@ void drawGoalArea(float zLimit, bool topSide)
     glColor3f(1.0f, 1.0f, 1.0f);
 
     glBegin(GL_POLYGON);
+
+    glNormal3f(0.0f, 1.0f, 0.0f);
 
     float x_edge = a * sqrt(1.0f - (zLimit * zLimit) / (b * b));
 

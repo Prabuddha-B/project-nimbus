@@ -47,7 +47,67 @@ void drawGrid(){
     glEnd();
 }
 
+// For Lighting Functions
+void setupLighting()
+{
+    GLfloat lightPosition[] = { sunX, sunY, sunZ, 1.0f };
 
+    GLfloat ambientLight[] =
+    {
+        0.3f, 0.3f, 0.3f, 1.0f
+    };
+
+    GLfloat diffuseLight[] =
+    {
+        0.9f, 0.9f, 0.9f, 1.0f
+    };
+
+    GLfloat specularLight[] =
+    {
+        1.0f, 1.0f, 1.0f, 1.0f
+    };
+
+    glLightfv(GL_LIGHT0, GL_POSITION, lightPosition);
+    glLightfv(GL_LIGHT0, GL_AMBIENT, ambientLight);
+    glLightfv(GL_LIGHT0, GL_DIFFUSE, diffuseLight);
+    glLightfv(GL_LIGHT0, GL_SPECULAR, specularLight);
+}
+
+// For Sun 
+void drawSun(){
+    glPushMatrix();
+
+    glTranslatef(sunX, sunY, sunZ);
+
+    // Core Sun
+    glColor3f(1.0f, 1.0f, 0.0f);
+    glutSolidSphere(3.0f, 30, 30);
+
+    // Glow Layer
+    glEnable(GL_BLEND);
+    glBlendFunc(GL_SRC_ALPHA, GL_ONE);
+
+    glColor4f(1.0f, 0.9f, 0.2f, 0.25f);
+    glutSolidSphere(4.5f, 30, 30);
+
+    glDisable(GL_BLEND);
+
+    // Change color with height
+    if (sunY > 80)
+    {
+        glColor3f(1.0f, 1.0f, 0.8f);
+    }
+    else if (sunY > 40)
+    {
+        glColor3f(1.0f, 0.9f, 0.3f);
+    }
+    else
+    {
+        glColor3f(1.0f, 0.5f, 0.2f);
+    }
+
+    glPopMatrix();
+}
 
 // Display Method
 void display()
@@ -62,6 +122,12 @@ void display()
         0, 1, 0
     );
 
+    setupLighting();
+
+    if (showSun) {
+        drawSun();
+    }
+
     drawGround();
 
     drawGoalArea(-42.0f, false);
@@ -74,7 +140,7 @@ void display()
     drawAllGoalPosts();
     
 
-    drawGrid();
+    //drawGrid();
     drawAxes();
 
     glutSwapBuffers();
@@ -106,6 +172,21 @@ void init()
 
     glEnable(GL_DEPTH_TEST);
     glEnable(GL_TEXTURE_2D);
+    glEnable(GL_BLEND);
+
+    glEnable(GL_LIGHTING);
+    glEnable(GL_LIGHT0);
+
+    glEnable(GL_NORMALIZE);
+
+    glShadeModel(GL_SMOOTH);
+
+    glEnable(GL_COLOR_MATERIAL);
+
+    glColorMaterial(
+        GL_FRONT_AND_BACK,
+        GL_AMBIENT_AND_DIFFUSE
+    );
 
     loadTextures();
 }
