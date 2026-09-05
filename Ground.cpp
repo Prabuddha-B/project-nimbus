@@ -4,19 +4,24 @@
 #include "Ground.h"
 
 // Quidditch pitch dimensions
-const float PITCH_LENGTH = 60.0f;
-const float PITCH_WIDTH = 30.0f;
+const float PITCH_LENGTH = 120.0f;
+const float PITCH_WIDTH = 60.0f;
 
 // Draws the main grass field.
-void drawGround(){
+void drawGround()
+{
     glColor3f(0.1f, 0.5f, 0.1f);
 
-    glBegin(GL_QUADS);
+    glBegin(GL_POLYGON);
 
-    glVertex3f(-25.0f, 0.0f, -35.0f);
-    glVertex3f(25.0f, 0.0f, -35.0f);
-    glVertex3f(25.0f, 0.0f, 35.0f);
-    glVertex3f(-25.0f, 0.0f, 35.0f);
+    for (int angle = 0; angle < 360; angle++){
+        float theta = angle * 3.14159f / 180.0f;
+
+        float x = (PITCH_WIDTH / 2) * cos(theta);
+        float z = (PITCH_LENGTH / 2) * sin(theta);
+
+        glVertex3f(x, 0.0f, z);
+    }
 
     glEnd();
 }
@@ -49,8 +54,8 @@ void drawCenterLine(){
 
     glBegin(GL_LINES);
 
-    glVertex3f(-15.0f, 0.05f, 0.0f);
-    glVertex3f(15.0f, 0.05f, 0.0f);
+    glVertex3f(-30.0f, 0.05f, 0.0f);
+    glVertex3f(30.0f, 0.05f, 0.0f);
 
     glEnd();
 }
@@ -58,7 +63,7 @@ void drawCenterLine(){
 // Draws the center circle.
 void drawCenterCircle()
 {
-    const float radius = 4.0f;
+    const float radius = 8.0f;
 
     glColor3f(1.0f, 1.0f, 1.0f);
 

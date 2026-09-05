@@ -2,46 +2,45 @@
 #include <glut.h>
 #include "Ground.h"
 #include "Camera.h"
+#include "GoalPost.h"
 
 
 // For Axes 
-void drawAxes()
-{
+void drawAxes(){
     glLineWidth(3);
 
     glBegin(GL_LINES);
 
     // X axis - Red
     glColor3f(1, 0, 0);
-    glVertex3f(-50, 0, 0);
-    glVertex3f(50, 0, 0);
+    glVertex3f(-300, 0, 0);
+    glVertex3f(300, 0, 0);
 
     // Y axis - Green
     glColor3f(0, 1, 0);
-    glVertex3f(0, -50, 0);
-    glVertex3f(0, 50, 0);
+    glVertex3f(0, -300, 0);
+    glVertex3f(0, 300, 0);
 
     // Z axis - Blue
     glColor3f(0, 0, 1);
-    glVertex3f(0, 0, -50);
-    glVertex3f(0, 0, 50);
+    glVertex3f(0, 0, -300);
+    glVertex3f(0, 0, 300);
 
     glEnd();
 }
 
 // For Grid
-void drawGrid()
-{
+void drawGrid(){
     glColor3f(0.5f, 0.5f, 0.5f);
 
     glBegin(GL_LINES);
 
-    for (int i = -50; i <= 50; i++){
-        glVertex3f((float)i, 0.0f, -50);
-        glVertex3f((float)i, 0, 50);
+    for (int i = -300; i <= 300; i+=5){
+        glVertex3f((float)i, 0.0f, -300);
+        glVertex3f((float)i, 0, 300);
 
-        glVertex3f(-50, 0.01f, (float)i);
-        glVertex3f(50, 0, (float)i);
+        glVertex3f(-300, 0.01f, (float)i);
+        glVertex3f(300, 0, (float)i);
     }
 
     glEnd();
@@ -64,9 +63,15 @@ void display()
 
     drawGround();
 
+    drawGoalArea(-42.0f, false);
+    drawGoalArea(42.0f, true);
+
     drawPitchBoundary();
     drawCenterLine();
     drawCenterCircle();
+
+    drawAllGoalPosts();
+    
 
     drawGrid();
     drawAxes();
@@ -105,11 +110,7 @@ int main(int argc, char** argv)
 {
     glutInit(&argc, argv);
 
-    glutInitDisplayMode(
-        GLUT_DOUBLE |
-        GLUT_RGB |
-        GLUT_DEPTH
-    );
+    glutInitDisplayMode(GLUT_DOUBLE | GLUT_RGB | GLUT_DEPTH);
 
     glutInitWindowSize(1200, 800);
 

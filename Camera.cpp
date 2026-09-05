@@ -4,8 +4,8 @@
 
 // Camera position coordinates.
 float camX = 0.0f;
-float camY = 10.0f;
-float camZ = 25.0f;
+float camY = 60.0f;
+float camZ = 180.0f;
 
 // Handles keyboard camera movement.
 void keyboard(unsigned char key, int x, int y)
