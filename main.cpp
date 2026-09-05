@@ -3,6 +3,7 @@
 #include "Ground.h"
 #include "Camera.h"
 #include "GoalPost.h"
+#include "Texture.h"
 
 
 // For Axes 
@@ -104,6 +105,9 @@ void init()
     glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
 
     glEnable(GL_DEPTH_TEST);
+    glEnable(GL_TEXTURE_2D);
+
+    loadTextures();
 }
 
 int main(int argc, char** argv)

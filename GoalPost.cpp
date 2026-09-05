@@ -2,6 +2,7 @@
 #include<glut.h>
 #include <cmath>
 #include "GoalPost.h"
+#include "Texture.h"
 
 // Draws one goal hoop
 void drawGoalPost(float x, float z, float height, float radius)
@@ -13,9 +14,13 @@ void drawGoalPost(float x, float z, float height, float radius)
 
     GLUquadric* quad = gluNewQuadric();
 
+    gluQuadricTexture(quad, GL_TRUE);
+
   
     // Pole
-    glColor3f(0.95f, 0.95f, 0.95f);
+    glBindTexture(GL_TEXTURE_2D, metalTexture);
+
+    glColor3f(1.0f, 1.0f, 1.0f);
 
     glPushMatrix();
 
@@ -24,9 +29,13 @@ void drawGoalPost(float x, float z, float height, float radius)
 
     glPopMatrix();
 
+    glBindTexture(GL_TEXTURE_2D, 0);
+
     
     // Base
-    glColor3f(0.6f, 0.6f, 0.6f);
+    glBindTexture(GL_TEXTURE_2D, metalTexture);
+
+    glColor3f(1.0f, 1.0f, 1.0f);
 
     glPushMatrix();
 
@@ -34,6 +43,8 @@ void drawGoalPost(float x, float z, float height, float radius)
     gluDisk(quad, 0.0, 0.5, 20, 1);
 
     glPopMatrix();
+
+    glBindTexture(GL_TEXTURE_2D, 0);
 
     
     // Hoop
@@ -72,11 +83,13 @@ void drawGoalArea(float zLimit, bool topSide)
 {
     const float a = 30.0f; // pitch half width
     const float b = 60.0f; // pitch half length
-
-    
     const float curveDepth = 7.0f;
 
-    glColor3f(0.90f, 0.88f, 0.78f);
+    // Adjust this to make the sand grains larger or smaller
+    const float texScale = 5.0f;
+
+    glBindTexture(GL_TEXTURE_2D, sandTexture);
+    glColor3f(1.0f, 1.0f, 1.0f);
 
     glBegin(GL_POLYGON);
 
@@ -84,44 +97,53 @@ void drawGoalArea(float zLimit, bool topSide)
 
     if (topSide)
     {
-        for (float z = zLimit; z <= b; z += 0.5f){
+        for (float z = zLimit; z <= b; z += 0.5f) {
             float x = a * sqrt(1.0f - (z * z) / (b * b));
+            glTexCoord2f(x / texScale, z / texScale);
             glVertex3f(x, 0.01f, z);
         }
 
-        for (float z = b; z >= zLimit; z -= 0.5f){
+        for (float z = b; z >= zLimit; z -= 0.5f) {
             float x = a * sqrt(1.0f - (z * z) / (b * b));
+            glTexCoord2f(-x / texScale, z / texScale);
             glVertex3f(-x, 0.01f, z);
         }
 
         int segments = 30;
-        for (int i = 0; i <= segments; ++i){
+        for (int i = 0; i <= segments; ++i) {
             float theta = 3.14159f * i / segments;
             float x = -x_edge * cos(theta);
             float z = zLimit - curveDepth * sin(theta);
+
+            glTexCoord2f(x / texScale, z / texScale);
             glVertex3f(x, 0.01f, z);
         }
     }
     else
     {
-        for (float z = -b; z <= zLimit; z += 0.5f){
+        for (float z = -b; z <= zLimit; z += 0.5f) {
             float x = a * sqrt(1.0f - (z * z) / (b * b));
+            glTexCoord2f(x / texScale, z / texScale);
             glVertex3f(x, 0.01f, z);
         }
 
-        for (float z = zLimit; z >= -b; z -= 0.5f){
+        for (float z = zLimit; z >= -b; z -= 0.5f) {
             float x = a * sqrt(1.0f - (z * z) / (b * b));
+            glTexCoord2f(-x / texScale, z / texScale);
             glVertex3f(-x, 0.01f, z);
         }
 
         int segments = 30;
-        for (int i = 0; i <= segments; ++i){
+        for (int i = 0; i <= segments; ++i) {
             float theta = 3.14159f * i / segments;
             float x = -x_edge * cos(theta);
             float z = zLimit + curveDepth * sin(theta);
+
+            glTexCoord2f(x / texScale, z / texScale);
             glVertex3f(x, 0.01f, z);
         }
     }
 
     glEnd();
+    glBindTexture(GL_TEXTURE_2D, 0);
 }
