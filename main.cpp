@@ -5,6 +5,7 @@
 #include "GoalPost.h"
 #include "Texture.h"
 #include "SpectatorStand.h"
+#include "Shadow.h"
 
 
 // For Axes 
@@ -133,7 +134,7 @@ void display()
     setupLighting();
 
     //drawGrid();
-    drawAxes();
+    //drawAxes();
 
 	glEnable(GL_TEXTURE_2D);
 
@@ -150,7 +151,7 @@ void display()
     drawPitchBoundary();
     drawCenterLine();
     drawCenterCircle();
-
+    drawGoalPostShadows();
     drawAllGoalPosts();
 
 

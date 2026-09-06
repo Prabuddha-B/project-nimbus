@@ -1,0 +1,107 @@
+#include <windows.h>
+#include <glut.h>
+#include <cmath>
+
+#include "Shadow.h"
+#include "Camera.h"
+
+
+// Draws a complete goal post shadow (pole + hoop)
+void drawShadowGoalPost(float x, float z, float height)
+{
+    // Calculate hoop shadow position
+    float hoopHeight = height + (height / 8.0f);
+
+    float hoopShadowX = x - (sunX * hoopHeight / sunY);
+
+    float hoopShadowZ = z - (sunZ * hoopHeight / sunY);
+
+    // Hoop radius
+    float hoopRadius = height / 8.0f;
+
+    // Direction from pole base to hoop shadow
+    float dx = hoopShadowX - x;
+    float dz = hoopShadowZ - z;
+
+    float len = sqrt(dx * dx + dz * dz);
+
+    if (len > 0.0f){
+        dx /= len;
+        dz /= len;
+    }
+
+    // Connect line to edge of hoop shadow instead of centre
+    float connectionX = hoopShadowX - dx * hoopRadius;
+
+    float connectionZ = hoopShadowZ - dz * hoopRadius;
+
+    // Pole Shadow
+   
+    glLineWidth(4.0f);
+
+    glBegin(GL_LINES);
+
+    glVertex3f( x, 0.05f, z);
+
+    glVertex3f( connectionX, 0.05f, connectionZ);
+
+    glEnd();
+
+    
+    // Hoop Shadow
+    glPushMatrix();
+
+    glTranslatef(hoopShadowX, 0.05f, hoopShadowZ);
+
+    glBegin(GL_LINE_LOOP);
+
+    for (int i = 0; i < 40; i++){
+
+        float theta = 2.0f * 3.14159f * i / 40;
+
+        glVertex3f( hoopRadius * cos(theta), 0.0f, hoopRadius * sin(theta));
+    }
+
+    glEnd();
+
+    glPopMatrix();
+}
+
+
+// Draws all projected goal post shadows
+void drawGoalPostShadows()
+{
+    // Do not draw shadows when the sun is below the ground
+    if (sunY <= 0.0f){
+        return;
+    }
+
+    glDisable(GL_LIGHTING);
+    glDisable(GL_TEXTURE_2D);
+
+    glEnable(GL_BLEND);
+
+    glBlendFunc(
+        GL_SRC_ALPHA,
+        GL_ONE_MINUS_SRC_ALPHA
+    );
+
+    glColor4f(
+        0.0f,
+        0.0f,
+        0.0f,
+        0.35f
+    );
+
+    drawShadowGoalPost(-10.0f, -50.0f, 12.0f);
+    drawShadowGoalPost(0.0f, -50.0f, 16.0f);
+    drawShadowGoalPost(10.0f, -50.0f, 8.0f);
+
+    drawShadowGoalPost(-10.0f, 50.0f, 8.0f);
+    drawShadowGoalPost(0.0f, 50.0f, 16.0f);
+    drawShadowGoalPost(10.0f, 50.0f, 12.0f);
+
+    glDisable(GL_BLEND);
+
+    glEnable(GL_LIGHTING);
+}
