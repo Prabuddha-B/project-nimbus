@@ -3,39 +3,38 @@
 
 A 3D Quidditch Stadium simulation developed using **C++**, **OpenGL**, and **GLUT** as part of the CSC3081 Computer Graphics module.
 
-The project recreates a textured Quidditch pitch inspired by the Harry Potter universe, featuring a fully modelled stadium environment, interactive camera controls, dynamic lighting, texture mapping, and procedurally generated stadium geometry.
+Project Nimbus recreates a Quidditch stadium inspired by the Harry Potter universe, featuring a fully modelled 3D environment, interactive camera controls, texture mapping, dynamic lighting, shadow projection, and procedurally generated stadium geometry.
 
 ---
-
 
 ## Features
 
 ### Core Graphics Components
 
-- 3D stadium environment
-- Quidditch pitch modelling
-- Goal post modelling
-- Spectator stand modelling
+- 3D object modelling
+- Geometric transformations
+- Hierarchical transformations
 - Perspective projection
 - Interactive camera system
-- Keyboard navigation
-- OpenGL lighting system
+- Keyboard controls
+- OpenGL lighting and materials
 - Texture mapping
-- Material properties
-- Hierarchical transformations
+- Real-time rendering
+- Shadow projection (Advanced Technique)
 
 ### Stadium Components
 
 - Elliptical Quidditch pitch
-- Textured grass playing surface
+- Textured grass playing field
 - Textured sand goal areas
 - Six Quidditch goal posts
 - Multi-tier spectator seating
 - Wooden outer stadium wall
 - Decorative banner ring
-- Wooden deck surrounding the pitch
+- Wooden spectator deck
+- Raised earth embankment surrounding the stadium
 
-### Lighting
+### Lighting System
 
 - Movable sunlight source
 - Ambient lighting
@@ -43,6 +42,24 @@ The project recreates a textured Quidditch pitch inspired by the Harry Potter un
 - Specular highlights
 - Real-time light positioning controls
 - Sun visualisation sphere
+- Lighting enable/disable toggle
+
+### Shadow Projection
+
+The project implements planar shadow projection using a shadow matrix generated from the light position and ground plane.
+
+Shadowed objects include:
+
+- Quidditch goal posts
+- Goal rings
+- Supporting structures
+
+Features:
+
+- Real-time shadow updates
+- Dynamic shadows based on light movement
+- Adjustable shadow projection scaling
+- Ground plane shadow rendering
 
 ### Texture Mapping
 
@@ -56,6 +73,7 @@ The project uses image-based texture mapping for:
 | Stadium Wall | Wood Texture |
 | Stadium Banners | Banner Texture |
 | Seating Tiers | Seat Texture |
+| Surrounding Terrain | Ground Texture |
 
 ---
 
@@ -66,19 +84,22 @@ The project uses image-based texture mapping for:
 - GLUT
 - GLU
 - SOIL2 Texture Library
-- Visual Studio
+- Visual Studio 2022
 
 ---
 
 ## Project Structure
 
-```
+```text
 Project_Nimbus/
 │
 ├── main.cpp
 │
 ├── Camera.cpp
 ├── Camera.h
+│
+├── Controls.cpp
+├── Controls.h
 │
 ├── Ground.cpp
 ├── Ground.h
@@ -89,6 +110,9 @@ Project_Nimbus/
 ├── SpectatorStand.cpp
 ├── SpectatorStand.h
 │
+├── Shadow.cpp
+├── Shadow.h
+│
 ├── Texture.cpp
 ├── Texture.h
 │
@@ -98,7 +122,8 @@ Project_Nimbus/
     ├── metal.jpg
     ├── wood.jpg
     ├── banner.png
-    └── seats.jpg
+    ├── seats.jpg
+    └── terrain.jpg
 ```
 
 ---
@@ -127,6 +152,14 @@ Project_Nimbus/
 | U | Move Sun Backward |
 | O | Move Sun Forward |
 | P | Toggle Sun Visibility |
+
+### Scene Controls
+
+| Key | Action |
+|------|---------|
+| G | Toggle Ground Plane |
+| X | Toggle Coordinate Axes |
+| Z | Toggle Lighting On / Off |
 
 ---
 
@@ -161,29 +194,44 @@ u = (x + width / 2) / width;
 v = (z + length / 2) / length;
 ```
 
-This ensures:
+Benefits:
 
 - Even texture distribution
-- Minimal stretching
-- Seamless tiling
+- Reduced distortion
+- Seamless surface coverage
 
 ---
 
 ### Lighting Model
 
-The project uses OpenGL's fixed-function lighting pipeline:
+The project uses OpenGL's fixed-function lighting pipeline.
 
-- Ambient component
-- Diffuse component
-- Specular component
+Components:
 
-Configured through:
+- Ambient lighting
+- Diffuse lighting
+- Specular reflections
+
+Implemented using:
 
 ```cpp
 glLightfv()
 glMaterialfv()
 glMaterialf()
 ```
+
+---
+
+### Shadow Projection
+
+The advanced technique implemented for this project is **planar shadow projection**.
+
+A shadow projection matrix is generated using:
+
+- Ground plane equation
+- Light source position
+
+The matrix projects object geometry onto the ground plane to create realistic shadows that respond dynamically to light movement.
 
 ---
 
@@ -194,39 +242,17 @@ This project demonstrates practical understanding of:
 - 3D Modelling
 - Coordinate Systems
 - Geometric Transformations
+- Hierarchical Modelling
 - Camera Systems
 - Perspective Projection
-- Texture Mapping
 - Lighting and Materials
+- Texture Mapping
+- Shadow Projection
 - OpenGL Rendering Pipeline
 - Interactive Graphics Programming
 
 ---
 
-## Build Instructions
-
-### Requirements
-
-- Visual Studio
-- OpenGL
-- GLUT
-- SOIL2
-
-### Build
-
-1. Clone repository
-
-```bash
-git clone https://github.com/<username>/Project_Nimbus.git
-```
-
-2. Open solution in Visual Studio
-
-3. Ensure OpenGL, GLUT, and SOIL2 dependencies are configured
-
-4. Build and run
-
----
 
 ## Author
 
@@ -236,7 +262,6 @@ Computer Science (Hons) Undergraduate
 Department of Statistics and Computer Science  
 Faculty of Science  
 University of Peradeniya  
-Sri Lanka  
+Sri Lanka
 
-**CSC3081 – Computer Graphics Individual Project**
-
+**CSC3081 – Computer Graphics Individual Project (2026)**
