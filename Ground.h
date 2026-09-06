@@ -11,3 +11,9 @@ void drawCenterLine();
 
 // Draws the center circle
 void drawCenterCircle();
+
+// Draw the ground plane for the world
+void drawWorldGround();
+
+// Draws the embankment around the pitch
+void drawEmbankment();

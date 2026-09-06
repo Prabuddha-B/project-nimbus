@@ -21,6 +21,7 @@ GLuint metalTexture = 0;
 GLuint woodTexture = 0;
 GLuint bannerTexture = 0;
 GLuint seatTexture = 0;
+GLuint dirtTexture = 0;
 
 void loadTextures()
 {
@@ -72,7 +73,6 @@ void loadTextures()
     // -------------------- Seats ----------------------------------
     seatTexture = SOIL_load_OGL_texture("Textures/seats.jpg", SOIL_LOAD_AUTO, SOIL_CREATE_NEW_ID, SOIL_FLAG_MIPMAPS);
     glBindTexture(GL_TEXTURE_2D, seatTexture);
-
     glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);
     glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
     glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR_MIPMAP_LINEAR);
@@ -83,5 +83,14 @@ void loadTextures()
     glGetFloatv(GL_MAX_TEXTURE_MAX_ANISOTROPY_EXT, &maxAniso);
     glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_MAX_ANISOTROPY_EXT, maxAniso);
 
+    glBindTexture(GL_TEXTURE_2D, 0);
+
+    // -------------------- Dirt ----------------------------------
+    dirtTexture = SOIL_load_OGL_texture("Textures/dirt.jpg", SOIL_LOAD_AUTO, SOIL_CREATE_NEW_ID, SOIL_FLAG_MIPMAPS);
+    glBindTexture(GL_TEXTURE_2D, dirtTexture);
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
+    glTexParameteri( GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR_MIPMAP_LINEAR);
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
     glBindTexture(GL_TEXTURE_2D, 0);
 }

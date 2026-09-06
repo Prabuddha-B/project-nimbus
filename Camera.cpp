@@ -2,6 +2,7 @@
 #include <glut.h>
 #include<stdio.h>
 #include "Camera.h"
+#include "Controls.h"
 
 // Camera position coordinates.
 float camX = 0.0f;
@@ -71,7 +72,23 @@ void keyboard(unsigned char key, int x, int y)
     case 'p':
         showSun = !showSun;
         break;
+
+    case 'g':
+        showGrid = !showGrid;
+        glutPostRedisplay();
+        break;
+
+    case 'x':
+        showAxes = !showAxes;
+        glutPostRedisplay();
+        break;
+
+    case 'z':
+        lightingEnabled = !lightingEnabled;
+        glutPostRedisplay();
+        break;
     }
+
 
     printf(
         "Sun Position: %.1f %.1f %.1f\n", sunX, sunY, sunZ);

@@ -130,13 +130,16 @@
     <ClCompile Include="GoalPost.cpp" />
     <ClCompile Include="Ground.cpp" />
     <ClCompile Include="main.cpp" />
+    <ClCompile Include="Shadow.cpp" />
     <ClCompile Include="SpectatorStand.cpp" />
     <ClCompile Include="Texture.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Camera.h" />
+    <ClInclude Include="Controls.h" />
     <ClInclude Include="GoalPost.h" />
     <ClInclude Include="Ground.h" />
+    <ClInclude Include="Shadow.h" />
     <ClInclude Include="SpectatorStand.h" />
     <ClInclude Include="Texture.h" />
   </ItemGroup>
