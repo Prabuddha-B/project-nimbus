@@ -7,14 +7,16 @@
 
 
 // Draws a complete goal post shadow (pole + hoop)
-void drawShadowGoalPost(float x, float z, float height)
-{
+void drawShadowGoalPost(float x, float z, float height){
+
     // Calculate hoop shadow position
     float hoopHeight = height + (height / 8.0f);
 
-    float hoopShadowX = x - (sunX * hoopHeight / sunY);
+    float shadowScale = 0.4f;
 
-    float hoopShadowZ = z - (sunZ * hoopHeight / sunY);
+    float hoopShadowX = x - (sunX * hoopHeight / sunY) * shadowScale;
+
+    float hoopShadowZ = z - (sunZ * hoopHeight / sunY) * shadowScale;
 
     // Hoop radius
     float hoopRadius = height / 8.0f;
@@ -69,8 +71,8 @@ void drawShadowGoalPost(float x, float z, float height)
 
 
 // Draws all projected goal post shadows
-void drawGoalPostShadows()
-{
+void drawGoalPostShadows(){
+
     // Do not draw shadows when the sun is below the ground
     if (sunY <= 0.0f){
         return;
@@ -81,17 +83,9 @@ void drawGoalPostShadows()
 
     glEnable(GL_BLEND);
 
-    glBlendFunc(
-        GL_SRC_ALPHA,
-        GL_ONE_MINUS_SRC_ALPHA
-    );
+    glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 
-    glColor4f(
-        0.0f,
-        0.0f,
-        0.0f,
-        0.35f
-    );
+    glColor4f( 0.0f, 0.0f, 0.0f, 0.35f);
 
     drawShadowGoalPost(-10.0f, -50.0f, 12.0f);
     drawShadowGoalPost(0.0f, -50.0f, 16.0f);
@@ -105,3 +99,49 @@ void drawGoalPostShadows()
 
     glEnable(GL_LIGHTING);
 }
+
+
+// Draws the shadow of the inner wall
+void drawOuterWallShadow(){
+
+    if (sunY <= 0.0f)
+        return;
+
+    const float OUTER_X = 42.0f;
+    const float OUTER_Z = 72.0f;
+    const float HEIGHT = 10.0f;
+
+    glDisable(GL_LIGHTING);
+    glDisable(GL_TEXTURE_2D);
+
+    glEnable(GL_BLEND);
+
+    glBlendFunc( GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+
+    glColor4f( 0.0f, 0.0f, 0.0f, 0.25f);
+
+    glBegin(GL_QUAD_STRIP);
+
+    for (int angle = 0; angle <= 360; angle++){
+
+        float theta = angle * 3.1415926f / 180.0f;
+
+        float x = OUTER_X * cos(theta);
+        float z = OUTER_Z * sin(theta);
+
+        float shadowX = x - (sunX * HEIGHT / sunY);
+
+        float shadowZ = z - (sunZ * HEIGHT / sunY);
+
+        glVertex3f(x, 0.02f, z);
+
+        glVertex3f( shadowX, 0.02f, shadowZ);
+    }
+
+    glEnd();
+
+    glDisable(GL_BLEND);
+
+    glEnable(GL_LIGHTING);
+}
+

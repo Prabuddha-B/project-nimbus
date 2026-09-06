@@ -6,7 +6,12 @@
 #include "Texture.h"
 #include "SpectatorStand.h"
 #include "Shadow.h"
+#include "Controls.h"
 
+
+bool showAxes = false;
+bool showGrid = false;
+bool lightingEnabled = true;
 
 // For Axes 
 void drawAxes(){
@@ -131,10 +136,22 @@ void display()
         0, 1, 0
     );
 
-    setupLighting();
+    if (lightingEnabled){
+        glEnable(GL_LIGHTING);
+        glEnable(GL_LIGHT0);
 
-    //drawGrid();
-    //drawAxes();
+        setupLighting();
+    }else{
+        glDisable(GL_LIGHTING);
+    }
+
+    if (showGrid){
+        drawGrid();
+    }
+
+    if (showAxes){
+        drawAxes();
+    }
 
 	glEnable(GL_TEXTURE_2D);
 
@@ -153,7 +170,10 @@ void display()
     drawPitchBoundary();
     drawCenterLine();
     drawCenterCircle();
+
+    drawOuterWallShadow();
     drawGoalPostShadows();
+
     drawAllGoalPosts();
 
 

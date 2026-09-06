@@ -136,6 +136,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Camera.h" />
+    <ClInclude Include="Controls.h" />
     <ClInclude Include="GoalPost.h" />
     <ClInclude Include="Ground.h" />
     <ClInclude Include="Shadow.h" />
