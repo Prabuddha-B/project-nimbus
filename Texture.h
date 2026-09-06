@@ -9,5 +9,6 @@ extern GLuint metalTexture;
 extern GLuint woodTexture;
 extern GLuint bannerTexture;
 extern GLuint seatTexture;
+extern GLuint dirtTexture;
 
 void loadTextures();

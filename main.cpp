@@ -142,6 +142,8 @@ void display()
         drawSun();
     }
 
+    drawWorldGround();
+    drawEmbankment();
     drawGround();
     drawSpectatorStand();
 
