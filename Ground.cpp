@@ -12,6 +12,8 @@ const float PITCH_WIDTH = 60.0f;
 // Draws the main grass field.
 void drawGround(){
 
+	glEnable(GL_TEXTURE_2D);
+
     glBindTexture(GL_TEXTURE_2D, grassTexture);
 
     glColor3f(1.0f, 1.0f, 1.0f);
@@ -20,8 +22,7 @@ void drawGround(){
 
     glNormal3f(0.0f, 1.0f, 0.0f);
 
-    for (int angle = 0; angle < 360; angle++)
-    {
+    for (int angle = 0; angle < 360; angle++){
         float theta = angle * 3.14159f / 180.0f;
 
         float x = (PITCH_WIDTH / 2) * cos(theta);
@@ -37,6 +38,8 @@ void drawGround(){
     glEnd();
 
     glBindTexture(GL_TEXTURE_2D, 0);
+
+	glDisable(GL_TEXTURE_2D);
 }
 
 

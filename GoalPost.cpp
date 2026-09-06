@@ -5,9 +5,10 @@
 #include "Texture.h"
 
 // Draws one goal hoop
-void drawGoalPost(float x, float z, float height, float radius)
-{
+void drawGoalPost(float x, float z, float height, float radius){
     glPushMatrix();
+
+	glEnable(GL_TEXTURE_2D);
 
     
     glTranslatef(x, 0.0f, z);
@@ -68,6 +69,8 @@ void drawGoalPost(float x, float z, float height, float radius)
 
     gluDeleteQuadric(quad);
 
+	glDisable(GL_TEXTURE_2D);
+
     glPopMatrix();
 }
 
@@ -97,6 +100,7 @@ void drawGoalArea(float zLimit, bool topSide)
     // Adjust this to make the sand grains larger or smaller
     const float texScale = 5.0f;
 
+	glEnable(GL_TEXTURE_2D);
     glBindTexture(GL_TEXTURE_2D, sandTexture);
     glColor3f(1.0f, 1.0f, 1.0f);
 
@@ -157,4 +161,5 @@ void drawGoalArea(float zLimit, bool topSide)
 
     glEnd();
     glBindTexture(GL_TEXTURE_2D, 0);
+	glDisable(GL_TEXTURE_2D);
 }

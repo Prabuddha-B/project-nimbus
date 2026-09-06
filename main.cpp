@@ -4,10 +4,14 @@
 #include "Camera.h"
 #include "GoalPost.h"
 #include "Texture.h"
+#include "SpectatorStand.h"
 
 
 // For Axes 
 void drawAxes(){
+
+    glDisable(GL_TEXTURE_2D);
+
     glLineWidth(3);
 
     glBegin(GL_LINES);
@@ -28,6 +32,10 @@ void drawAxes(){
     glVertex3f(0, 0, 300);
 
     glEnd();
+
+    glColor3f(1.0f, 1.0f, 1.0f);
+
+    glEnable(GL_TEXTURE_2D);
 }
 
 // For Grid
@@ -124,11 +132,17 @@ void display()
 
     setupLighting();
 
+    //drawGrid();
+    drawAxes();
+
+	glEnable(GL_TEXTURE_2D);
+
     if (showSun) {
         drawSun();
     }
 
     drawGround();
+    drawSpectatorStand();
 
     drawGoalArea(-42.0f, false);
     drawGoalArea(42.0f, true);
@@ -138,10 +152,12 @@ void display()
     drawCenterCircle();
 
     drawAllGoalPosts();
+
+
+	glDisable(GL_TEXTURE_2D);
     
 
-    //drawGrid();
-    drawAxes();
+   
 
     glutSwapBuffers();
 }
