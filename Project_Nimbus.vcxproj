@@ -133,6 +133,7 @@
     <ClCompile Include="Shadow.cpp" />
     <ClCompile Include="SpectatorStand.cpp" />
     <ClCompile Include="Texture.cpp" />
+    <ClCompile Include="Tower.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Camera.h" />
@@ -142,6 +143,7 @@
     <ClInclude Include="Shadow.h" />
     <ClInclude Include="SpectatorStand.h" />
     <ClInclude Include="Texture.h" />
+    <ClInclude Include="Tower.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

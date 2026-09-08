@@ -1,5 +1,6 @@
 #include<windows.h>
 #include <glut.h>
+
 #include "Ground.h"
 #include "Camera.h"
 #include "GoalPost.h"
@@ -7,7 +8,7 @@
 #include "SpectatorStand.h"
 #include "Shadow.h"
 #include "Controls.h"
-
+#include "Tower.h"
 
 bool showAxes = false;
 bool showGrid = false;
@@ -62,25 +63,25 @@ void drawGrid(){
 }
 
 // For Lighting Functions
-void setupLighting()
-{
-    GLfloat lightPosition[] = { sunX, sunY, sunZ, 1.0f };
+void setupLighting(){
+    GLfloat lightPosition[] = { sunX, sunY, sunZ, 1.0f };     // Light Position
 
     GLfloat ambientLight[] =
     {
-        0.3f, 0.3f, 0.3f, 1.0f
+        0.3f, 0.3f, 0.3f, 1.0f                               // Indirect light that exists everywhere
     };
 
     GLfloat diffuseLight[] =
     {
-        0.9f, 0.9f, 0.9f, 1.0f
+        0.9f, 0.9f, 0.9f, 1.0f                              // Main illumination component
     };
 
     GLfloat specularLight[] =
     {
-        1.0f, 1.0f, 1.0f, 1.0f
+		1.0f, 1.0f, 1.0f, 1.0f                              // Shiny highlights on reflective surfaces
     };
 
+	// Assign Light Properties
     glLightfv(GL_LIGHT0, GL_POSITION, lightPosition);
     glLightfv(GL_LIGHT0, GL_AMBIENT, ambientLight);
     glLightfv(GL_LIGHT0, GL_DIFFUSE, diffuseLight);
@@ -89,6 +90,7 @@ void setupLighting()
 
 // For Sun 
 void drawSun(){
+
     glPushMatrix();
 
     glTranslatef(sunX, sunY, sunZ);
@@ -107,25 +109,25 @@ void drawSun(){
     glDisable(GL_BLEND);
 
     // Change color with height
-    if (sunY > 80)
-    {
+    if (sunY > 80){
         glColor3f(1.0f, 1.0f, 0.8f);
     }
-    else if (sunY > 40)
-    {
+    else if (sunY > 40){
         glColor3f(1.0f, 0.9f, 0.3f);
     }
-    else
-    {
+    else{
         glColor3f(1.0f, 0.5f, 0.2f);
     }
 
     glPopMatrix();
+
+    //Reset color so the sun's orange/red doesn't bleed onto the pitch!
+    glColor3f(1.0f, 1.0f, 1.0f);
 }
 
 // Display Method
-void display()
-{
+void display(){
+
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
     glLoadIdentity();
@@ -135,6 +137,10 @@ void display()
         0, 0, 0,
         0, 1, 0
     );
+
+    // Reset the global color state to pure white at the start of every frame
+    glColor3f(1.0f, 1.0f, 1.0f);
+
 
     if (lightingEnabled){
         glEnable(GL_LIGHTING);
@@ -164,6 +170,8 @@ void display()
     drawGround();
     drawSpectatorStand();
 
+    drawTower();
+
     drawGoalArea(-42.0f, false);
     drawGoalArea(42.0f, true);
 
@@ -179,15 +187,15 @@ void display()
 
 	glDisable(GL_TEXTURE_2D);
     
-
+    // Turn off the tower light before the frame ends so it doesn't wrap around
+    glDisable(GL_LIGHT1);
    
 
     glutSwapBuffers();
 }
 
 
-void reshape(int w, int h)
-{
+void reshape(int w, int h){
     if (h == 0) h = 1;
 
     glViewport(0, 0, w, h);
@@ -205,8 +213,7 @@ void reshape(int w, int h)
     glMatrixMode(GL_MODELVIEW);
 }
 
-void init()
-{
+void init(){
     glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
 
     glEnable(GL_DEPTH_TEST);
@@ -222,10 +229,7 @@ void init()
 
     glEnable(GL_COLOR_MATERIAL);
 
-    glColorMaterial(
-        GL_FRONT_AND_BACK,
-        GL_AMBIENT_AND_DIFFUSE
-    );
+    glColorMaterial(GL_FRONT_AND_BACK, GL_AMBIENT_AND_DIFFUSE);
 
     loadTextures();
 }
@@ -245,6 +249,7 @@ int main(int argc, char** argv)
     glutDisplayFunc(display);
     glutReshapeFunc(reshape);
 	glutKeyboardFunc(keyboard);
+    glutIdleFunc(display);
 
     glutMainLoop();
 

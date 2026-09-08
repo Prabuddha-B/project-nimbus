@@ -1,8 +1,10 @@
 #include <windows.h>
 #include <glut.h>
 #include<stdio.h>
+
 #include "Camera.h"
 #include "Controls.h"
+#include "Tower.h"
 
 // Camera position coordinates.
 float camX = 0.0f;
@@ -17,9 +19,12 @@ float sunX = 50.0f;
 float sunY = 80.0f;
 float sunZ = 50.0f;
 
+// Tower light state
+bool isTowerLightOn = false;
+
 // Handles keyboard camera movement.
-void keyboard(unsigned char key, int x, int y)
-{
+void keyboard(unsigned char key, int x, int y){
+
     switch (key){
     case 'w':
         camZ -= 1.0f;
@@ -73,6 +78,10 @@ void keyboard(unsigned char key, int x, int y)
         showSun = !showSun;
         break;
 
+    case 't':
+        isTowerLightOn = !isTowerLightOn;
+        break;
+
     case 'g':
         showGrid = !showGrid;
         glutPostRedisplay();
@@ -86,6 +95,10 @@ void keyboard(unsigned char key, int x, int y)
     case 'z':
         lightingEnabled = !lightingEnabled;
         glutPostRedisplay();
+        break;
+
+    case 'r':
+        towerRotation += 5.0f;
         break;
     }
 

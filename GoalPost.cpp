@@ -1,35 +1,36 @@
 #include<windows.h>
 #include<glut.h>
 #include <cmath>
+
 #include "GoalPost.h"
 #include "Texture.h"
 
 // Draws one goal hoop
 void drawGoalPost(float x, float z, float height, float radius){
+
     glPushMatrix();
 
 	glEnable(GL_TEXTURE_2D);
 
     
-    glTranslatef(x, 0.0f, z);
+	glTranslatef(x, 0.0f, z);  // Goal Post Position
 
     GLUquadric* quad = gluNewQuadric();
 
     gluQuadricTexture(quad, GL_TRUE);
-    gluQuadricNormals(quad, GLU_SMOOTH);
+    gluQuadricNormals(quad, GLU_SMOOTH);   // Smooth Normals
 
     GLfloat specular[] =
     {
-        1.0f,1.0f,1.0f,1.0f
+		1.0f,1.0f,1.0f,1.0f         // White Specular Highlight
     };
 
     glMaterialfv(GL_FRONT, GL_SPECULAR, specular);
-    glMaterialf( GL_FRONT, GL_SHININESS, 80.0f);
+    glMaterialf( GL_FRONT, GL_SHININESS, 80.0f);  // Shininess
 
   
     // Pole
     glBindTexture(GL_TEXTURE_2D, metalTexture);
-
     glColor3f(1.0f, 1.0f, 1.0f);
 
     glPushMatrix();
@@ -44,7 +45,6 @@ void drawGoalPost(float x, float z, float height, float radius){
     
     // Base
     glBindTexture(GL_TEXTURE_2D, metalTexture);
-
     glColor3f(1.0f, 1.0f, 1.0f);
 
     glPushMatrix();
@@ -60,7 +60,6 @@ void drawGoalPost(float x, float z, float height, float radius){
     // Hoop
     glPushMatrix();
 
- 
     glTranslatef(0.0f, height + radius, 0.0f);
     glColor3f( 1.0f, 0.85f, 0.0f);
     glutWireTorus(0.08, radius, 30, 60);
@@ -76,8 +75,8 @@ void drawGoalPost(float x, float z, float height, float radius){
 
 
 // Draws all six Quidditch goal posts
-void drawAllGoalPosts()
-{
+void drawAllGoalPosts(){
+
     // Left side
     drawGoalPost(-10.0f, -50.0f, 12.0f, 1.4f); // medium
     drawGoalPost(0.0f, -50.0f, 16.0f, 1.8f); // large
@@ -91,13 +90,13 @@ void drawAllGoalPosts()
 
 
 // Draws sand goal area
-void drawGoalArea(float zLimit, bool topSide)
-{
+void drawGoalArea(float zLimit, bool topSide){
+
     const float a = 30.0f; // pitch half width
     const float b = 60.0f; // pitch half length
     const float curveDepth = 7.0f;
 
-    // Adjust this to make the sand grains larger or smaller
+    // Make the sand grains larger or smaller
     const float texScale = 5.0f;
 
 	glEnable(GL_TEXTURE_2D);

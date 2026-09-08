@@ -14,7 +14,6 @@
 #endif
 
 
-
 GLuint grassTexture = 0;
 GLuint sandTexture = 0;
 GLuint metalTexture = 0;
@@ -22,9 +21,13 @@ GLuint woodTexture = 0;
 GLuint bannerTexture = 0;
 GLuint seatTexture = 0;
 GLuint dirtTexture = 0;
+GLuint gryffindorTexture = 0;
+GLuint gryffindorRoofTexture = 0;
+GLuint gryffindorFlagTexture = 0;
+GLuint gryffindorDeckTexture = 0;
 
-void loadTextures()
-{
+void loadTextures(){
+
     // -------------------- Grass ----------------------------------
     grassTexture = SOIL_load_OGL_texture("Textures/grass.jpg", SOIL_LOAD_AUTO, SOIL_CREATE_NEW_ID, SOIL_FLAG_MIPMAPS);
     glBindTexture(GL_TEXTURE_2D, grassTexture);
@@ -93,4 +96,46 @@ void loadTextures()
     glTexParameteri( GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR_MIPMAP_LINEAR);
     glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
     glBindTexture(GL_TEXTURE_2D, 0);
+
+
+    // -------------------- Tower  --------------------
+    gryffindorTexture = SOIL_load_OGL_texture("Textures/gryffindorTower.png", SOIL_LOAD_AUTO, SOIL_CREATE_NEW_ID, SOIL_FLAG_MIPMAPS);
+    glBindTexture(GL_TEXTURE_2D, gryffindorTexture);
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR_MIPMAP_LINEAR);
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+    glBindTexture(GL_TEXTURE_2D, 0);
+
+
+    // -------------------- Roof --------------------
+
+    gryffindorRoofTexture = SOIL_load_OGL_texture("Textures/gryffindorRoof.png", SOIL_LOAD_AUTO, SOIL_CREATE_NEW_ID, SOIL_FLAG_MIPMAPS);
+    glBindTexture(GL_TEXTURE_2D, gryffindorRoofTexture);
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR_MIPMAP_LINEAR);
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+    glBindTexture(GL_TEXTURE_2D, 0);
+
+
+    // -------------------- Gryffindor Flag --------------------
+
+    gryffindorFlagTexture = SOIL_load_OGL_texture("Textures/gryffindorFlag.png", SOIL_LOAD_AUTO, SOIL_CREATE_NEW_ID, SOIL_FLAG_MIPMAPS);
+    glBindTexture(GL_TEXTURE_2D, gryffindorFlagTexture);
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR_MIPMAP_LINEAR);
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+    glBindTexture(GL_TEXTURE_2D, 0);
+
+    // -------------------- Gryffindor Deck --------------------
+    gryffindorDeckTexture = SOIL_load_OGL_texture("Textures/gryffindorDeck.png", SOIL_LOAD_AUTO, SOIL_CREATE_NEW_ID, SOIL_FLAG_MIPMAPS);
+    glBindTexture(GL_TEXTURE_2D, gryffindorDeckTexture);
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR_MIPMAP_LINEAR);
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+    glBindTexture(GL_TEXTURE_2D, 0);
+
 }

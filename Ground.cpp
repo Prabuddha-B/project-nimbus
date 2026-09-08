@@ -1,6 +1,7 @@
 #include<windows.h>
 #include <glut.h>
 #include <cmath>
+
 #include "Ground.h"
 #include "Texture.h"
 
@@ -14,11 +15,12 @@ const float WORLD_Y = -0.5f;
 
 // Draw the ground plane for the world
 void drawWorldGround(){
+
     glEnable(GL_TEXTURE_2D);
 
     glBindTexture(GL_TEXTURE_2D, dirtTexture);
 
-    glColor3f(0.8f, 0.8f, 0.8f);
+    glColor3f(0.8f, 0.8f, 0.8f);    // Slightly darkens texture.
 
     const float SIZE = WORLD_SIZE;
 
@@ -45,6 +47,7 @@ void drawWorldGround(){
     glDisable(GL_TEXTURE_2D);
 }
 
+
 // Draws the embankment around the pitch
 void drawEmbankment(){
 
@@ -60,11 +63,12 @@ void drawEmbankment(){
 
     glBindTexture(GL_TEXTURE_2D, dirtTexture);
 
-    glColor3f(1.0f, 1.0f, 1.0f);
+    glColor3f(0.9f, 0.9f, 0.9f);
 
     glBegin(GL_QUAD_STRIP);
 
     for (int angle = 0; angle <= 360; angle++){
+
         float theta = angle * 3.1415926f / 180.0f;
 
         float innerX = INNER_X * cos(theta);
@@ -92,6 +96,7 @@ void drawEmbankment(){
         float outerX = OUTER_X * cos(theta);
         float outerZ = OUTER_Z * sin(theta);
 
+		// Normals for the outer slope wall 
         glNormal3f(
             cos(theta),
             0.4f,
@@ -127,11 +132,13 @@ void drawGround(){
     glNormal3f(0.0f, 1.0f, 0.0f);
 
     for (int angle = 0; angle < 360; angle++){
+
         float theta = angle * 3.14159f / 180.0f;
 
         float x = (PITCH_WIDTH / 2) * cos(theta);
         float z = (PITCH_LENGTH / 2) * sin(theta);
 
+        // Texture Coordinates
         float u = ((x + PITCH_WIDTH / 2) / PITCH_WIDTH);
         float v = ((z + PITCH_LENGTH / 2) / PITCH_LENGTH);
 
@@ -147,12 +154,14 @@ void drawGround(){
 }
 
 
-// Draws the boundary of the Quidditch pitch
+// Draws the white boundary of the Quidditch pitch
 void drawPitchBoundary() {
+
     glColor3f(1.0f, 1.0f, 1.0f);
 
     glLineWidth(3.0f);
 
+    // Automatically connects the final vertex back to the first, creating a closed boundary
 	glBegin(GL_LINE_LOOP);
 
     for (int angle = 0; angle < 360; angle++) {
@@ -184,8 +193,8 @@ void drawCenterLine(){
 
 
 // Draws the center circle.
-void drawCenterCircle()
-{
+void drawCenterCircle(){
+
     const float radius = 8.0f;
 
     glColor3f(1.0f, 1.0f, 1.0f);
@@ -195,6 +204,7 @@ void drawCenterCircle()
     glBegin(GL_LINE_LOOP);
 
     for (int angle = 0; angle < 360; angle++){
+
         float theta = angle * 3.1415926f / 180.0f;
 
         float x = radius * cos(theta);
