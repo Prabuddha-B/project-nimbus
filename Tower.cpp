@@ -8,11 +8,11 @@
 float towerRotation = 0.0f;
 
 // Draws the textured shaft of the tower
-void drawTexturedShaft() {
+void drawTexturedShaft(GLuint tex) {
 
     glEnable(GL_TEXTURE_2D);
 
-    glBindTexture(GL_TEXTURE_2D, gryffindorTexture);
+    glBindTexture(GL_TEXTURE_2D, tex);
 
     float w = 4.0f;
     float h = 16.0f;
@@ -57,17 +57,17 @@ void drawTexturedShaft() {
 
 
 // Draws hourglass viewing deck with open front
-void drawHourglassDeck() {
+void drawHourglassDeck(GLuint deckTex, GLenum lightID) {
 
     float w1 = 4.0f;        // Bottom Width
-	float w2 = 2.0f;        // Middle Width
-	float w3 = 5.2f;        // Top Width
+    float w2 = 2.0f;        // Middle Width
+    float w3 = 5.2f;        // Top Width
     float h1 = 6.0f;        // Lower Height
-	float h2 = 8.0f;        // Upper Height
+    float h2 = 8.0f;        // Upper Height
 
-    
+
     glEnable(GL_TEXTURE_2D);
-    glBindTexture(GL_TEXTURE_2D, gryffindorDeckTexture);
+    glBindTexture(GL_TEXTURE_2D, deckTex);
 
     glColor3f(1.0f, 1.0f, 1.0f); // Pure White Wash
 
@@ -75,12 +75,12 @@ void drawHourglassDeck() {
 
 
     // ---------------------- LOWER SECTION ------------------------
-    
+
     // Back Face
     glNormal3f(0.0f, 0.0f, -1.0f);
-    glTexCoord2f(0.0f, 0.0f); 
+    glTexCoord2f(0.0f, 0.0f);
     glVertex3f(w1, 0.0f, -w1);
-    glTexCoord2f(1.0f, 0.0f); 
+    glTexCoord2f(1.0f, 0.0f);
     glVertex3f(-w1, 0.0f, -w1);
     glTexCoord2f(1.0f, 1.0f);
     glVertex3f(-w2, h1, -w2);
@@ -100,7 +100,7 @@ void drawHourglassDeck() {
 
     // Right Face
     glNormal3f(1.0f, 0.0f, 0.0f);
-    glTexCoord2f(0.0f, 0.0f); 
+    glTexCoord2f(0.0f, 0.0f);
     glVertex3f(w1, 0.0f, w1);
     glTexCoord2f(1.0f, 0.0f);
     glVertex3f(w1, 0.0f, -w1);
@@ -113,7 +113,7 @@ void drawHourglassDeck() {
 
     glBegin(GL_QUADS);
     // ------------------------ UPPER SECTION ---------------------------------
-    
+
     // Back Face
     glNormal3f(0.0f, 0.0f, -1.0f);
     glTexCoord2f(0.0f, 1.0f);
@@ -159,41 +159,41 @@ void drawHourglassDeck() {
     glBegin(GL_LINES);
 
     // Lower angled corner posts
-    glVertex3f(-w1, 0.0f, w1);  
+    glVertex3f(-w1, 0.0f, w1);
     glVertex3f(-w2, h1, w2);
-    glVertex3f(w1, 0.0f, w1);  
+    glVertex3f(w1, 0.0f, w1);
     glVertex3f(w2, h1, w2);
     glVertex3f(-w1, 0.0f, -w1);
     glVertex3f(-w2, h1, -w2);
-    glVertex3f(w1, 0.0f, -w1); 
+    glVertex3f(w1, 0.0f, -w1);
     glVertex3f(w2, h1, -w2);
 
     // Upper angled corner posts
-    glVertex3f(-w2, h1, w2);  
+    glVertex3f(-w2, h1, w2);
     glVertex3f(-w3, h1 + h2, w3);
-    glVertex3f(w2, h1, w2);    
+    glVertex3f(w2, h1, w2);
     glVertex3f(w3, h1 + h2, w3);
-    glVertex3f(-w2, h1, -w2);  
+    glVertex3f(-w2, h1, -w2);
     glVertex3f(-w3, h1 + h2, -w3);
-    glVertex3f(w2, h1, -w2);  
+    glVertex3f(w2, h1, -w2);
     glVertex3f(w3, h1 + h2, -w3);
 
     // Waist horizontal frame
-    glVertex3f(-w2, h1, w2); 
+    glVertex3f(-w2, h1, w2);
     glVertex3f(w2, h1, w2);
-    glVertex3f(w2, h1, w2);  
+    glVertex3f(w2, h1, w2);
     glVertex3f(w2, h1, -w2);
-    glVertex3f(w2, h1, -w2); 
+    glVertex3f(w2, h1, -w2);
     glVertex3f(-w2, h1, -w2);
     glVertex3f(-w2, h1, -w2);
     glVertex3f(-w2, h1, w2);
 
     // Top horizontal frame
-    glVertex3f(-w3, h1 + h2, w3); 
+    glVertex3f(-w3, h1 + h2, w3);
     glVertex3f(w3, h1 + h2, w3);
-    glVertex3f(w3, h1 + h2, w3); 
+    glVertex3f(w3, h1 + h2, w3);
     glVertex3f(w3, h1 + h2, -w3);
-    glVertex3f(w3, h1 + h2, -w3); 
+    glVertex3f(w3, h1 + h2, -w3);
     glVertex3f(-w3, h1 + h2, -w3);
     glVertex3f(-w3, h1 + h2, -w3);
     glVertex3f(-w3, h1 + h2, w3);
@@ -202,8 +202,8 @@ void drawHourglassDeck() {
     glLineWidth(1.0f);
 
     // ---------------------------  DRAW SOLID WOODEN FLOOR ----------------------
-    
-    glColor3f(0.25f, 0.15f, 0.05f); 
+
+    glColor3f(0.25f, 0.15f, 0.05f);
 
     glBegin(GL_QUADS);
     glNormal3f(0.0f, 1.0f, 0.0f);
@@ -213,27 +213,26 @@ void drawHourglassDeck() {
     glVertex3f(-w1, 0.02f, -w1);
     glEnd();
 
-    
+
     // ---------------------------  TOWER LIGHT SYSTEM ----------------------
-  
+
 
     if (isTowerLightOn) {
-        glEnable(GL_LIGHT1);
+        glEnable(lightID);
 
         GLfloat lightPos[] = { 0.0f, h1 + (h2 * 0.5f), w3 + 3.0f, 1.0f };
         GLfloat diffuse[] = { 1.0f, 0.8f, 0.3f, 1.0f };   // Warm Yellow Light
         GLfloat specular[] = { 1.0f, 0.9f, 0.5f, 1.0f };
-
         GLfloat ambient[] = { 0.0f, 0.0f, 0.0f, 1.0f };
 
-        glLightfv(GL_LIGHT1, GL_POSITION, lightPos);
-        glLightfv(GL_LIGHT1, GL_DIFFUSE, diffuse);
-        glLightfv(GL_LIGHT1, GL_SPECULAR, specular);
-        glLightfv(GL_LIGHT1, GL_AMBIENT, ambient);
+        glLightfv(lightID, GL_POSITION, lightPos);
+        glLightfv(lightID, GL_DIFFUSE, diffuse);
+        glLightfv(lightID, GL_SPECULAR, specular);
+        glLightfv(lightID, GL_AMBIENT, ambient);
 
-        glLightf(GL_LIGHT1, GL_CONSTANT_ATTENUATION, 0.5f);
-        glLightf(GL_LIGHT1, GL_LINEAR_ATTENUATION, 0.01f);
-        glLightf(GL_LIGHT1, GL_QUADRATIC_ATTENUATION, 0.001f);
+        glLightf(lightID, GL_CONSTANT_ATTENUATION, 0.5f);
+        glLightf(lightID, GL_LINEAR_ATTENUATION, 0.01f);
+        glLightf(lightID, GL_QUADRATIC_ATTENUATION, 0.001f);
 
         glDisable(GL_LIGHTING);
 
@@ -247,7 +246,7 @@ void drawHourglassDeck() {
         glEnd();
 
         // --- Front Halo Layer ---
-		glEnable(GL_BLEND);                 // Enable blending for transparency
+        glEnable(GL_BLEND);                 // Enable blending for transparency
         glBlendFunc(GL_SRC_ALPHA, GL_ONE);
 
         glColor4f(1.0f, 0.6f, 0.1f, 0.6f);
@@ -270,13 +269,13 @@ void drawHourglassDeck() {
 
         glDisable(GL_BLEND);
 
-		// Global lighting Switch
+        // Global lighting Switch
         if (lightingEnabled) {
             glEnable(GL_LIGHTING);
         }
     }
     else {
-        glDisable(GL_LIGHT1);
+        glDisable(lightID);
     }
 
     glColor3f(1.0f, 1.0f, 1.0f);    // Pure white wash
@@ -284,34 +283,34 @@ void drawHourglassDeck() {
 
 
 // Draws Quidditch tent roof
-void drawPyramidRoof(float width, float height){
+void drawPyramidRoof(float width, float height, GLuint roofTex) {
 
     float w = width * 0.5f;
 
     glEnable(GL_TEXTURE_2D);
-    glBindTexture(GL_TEXTURE_2D, gryffindorRoofTexture);
+    glBindTexture(GL_TEXTURE_2D, roofTex);
 
-    // Exact color tint of the shaft 
-    glColor3f(0.55f, 0.45f, 0.20f);
+
+    glColor3f(1.0f, 1.0f, 1.0f);
 
     glBegin(GL_TRIANGLES);
 
     // FRONT FACE
     glNormal3f(0.0f, 0.7f, 0.7f);
-    glTexCoord2f(0.0f, 1.0f); 
+    glTexCoord2f(0.0f, 1.0f);
     glVertex3f(-w, 0.0f, w);
-    glTexCoord2f(1.0f, 1.0f); 
+    glTexCoord2f(1.0f, 1.0f);
     glVertex3f(w, 0.0f, w);
-    glTexCoord2f(0.5f, 0.5f); 
+    glTexCoord2f(0.5f, 0.5f);
     glVertex3f(0.0f, height, 0.0f);
 
     // BACK FACE
     glNormal3f(0.0f, 0.7f, -0.7f);
-    glTexCoord2f(0.0f, 1.0f); 
+    glTexCoord2f(0.0f, 1.0f);
     glVertex3f(w, 0.0f, -w);
-    glTexCoord2f(1.0f, 1.0f); 
+    glTexCoord2f(1.0f, 1.0f);
     glVertex3f(-w, 0.0f, -w);
-    glTexCoord2f(0.5f, 0.5f); 
+    glTexCoord2f(0.5f, 0.5f);
     glVertex3f(0.0f, height, 0.0f);
 
     // LEFT FACE
@@ -320,7 +319,7 @@ void drawPyramidRoof(float width, float height){
     glVertex3f(-w, 0.0f, -w);
     glTexCoord2f(1.0f, 1.0f);
     glVertex3f(-w, 0.0f, w);
-    glTexCoord2f(0.5f, 0.5f); 
+    glTexCoord2f(0.5f, 0.5f);
     glVertex3f(0.0f, height, 0.0f);
 
     // RIGHT FACE
@@ -336,12 +335,12 @@ void drawPyramidRoof(float width, float height){
 
     glBindTexture(GL_TEXTURE_2D, 0);
     glDisable(GL_TEXTURE_2D);
-	glColor3f(1.0f, 1.0f, 1.0f);                // Pure White Wash to prevent color bleed onto other objects
+    glColor3f(1.0f, 1.0f, 1.0f);                // Pure White Wash 
+
 }
 
-
 // Draws an animated flag that waves in the wind
-void drawAnimatedFlag(){
+void drawAnimatedFlag(GLuint flagTex) {
 
     float time = glutGet(GLUT_ELAPSED_TIME) * 0.005f;
 
@@ -352,14 +351,14 @@ void drawAnimatedFlag(){
     int segments = 50;
 
     glEnable(GL_TEXTURE_2D);
-    glBindTexture(GL_TEXTURE_2D, gryffindorFlagTexture);
+    glBindTexture(GL_TEXTURE_2D, flagTex);
 
     glColor3f(1.0f, 1.0f, 1.0f);
 
     // ---------- FRONT SIDE ----------
     glNormal3f(0.0f, 0.0f, 1.0f);
     glBegin(GL_QUAD_STRIP);
-    for (int i = 0; i <= segments; i++){
+    for (int i = 0; i <= segments; i++) {
 
         float x = (flagWidth * i) / segments;
 
@@ -371,7 +370,7 @@ void drawAnimatedFlag(){
         glTexCoord2f(u, 1.0f);
         glVertex3f(x, 0.0f, wave);
 
-		// Top Vertex
+        // Top Vertex
         glTexCoord2f(u, 0.0f);
         glVertex3f(x, flagHeight, wave);
     }
@@ -382,14 +381,14 @@ void drawAnimatedFlag(){
     // ---------- BACK SIDE ----------
     glNormal3f(0.0f, 0.0f, -1.0f);
     glBegin(GL_QUAD_STRIP);
-    for (int i = 0; i <= segments; i++){
+    for (int i = 0; i <= segments; i++) {
         float x = (flagWidth * i) / segments;
 
         float wave = sin(time + x * 2.5f) * 0.15f * (x / flagWidth);
 
         float u = (float)i / segments;
 
-        glTexCoord2f(1.0f -u, 1.0f);
+        glTexCoord2f(1.0f - u, 1.0f);
         glVertex3f(x, 0.0f, wave);
 
         glTexCoord2f(1.0f - u, 0.0f);
@@ -402,13 +401,13 @@ void drawAnimatedFlag(){
 }
 
 
-// Draws the entire Quidditch tower
-void drawTower() {
+// Draws the entire Quidditch tower dynamically
+void drawTower(float angleDegrees, float baseR, float baseG, float baseB, GLuint shaftTex, GLuint deckTex, GLuint roofTex, GLuint flagTex, GLenum lightID) {
 
     glPushMatrix();
 
     // Tower position on the pitch
-    float theta = 45.0f * 3.14159f / 180.0f;
+    float theta = angleDegrees * 3.14159f / 180.0f;
     float towerX = 50.0f * cos(theta);
     float towerZ = 80.0f * sin(theta);
     glTranslatef(towerX, 0.0f, towerZ);   // Move Tower
@@ -418,7 +417,7 @@ void drawTower() {
 
     // ----- BASE ----- 
     glPushMatrix();
-    glColor3f(0.70f, 0.15f, 0.15f);
+    glColor3f(baseR, baseG, baseB);
     glTranslatef(0.0f, 4.0f, 0.0f);
     glScalef(12.0f, 8.0f, 12.0f);
     glutSolidCube(1.0f);
@@ -429,15 +428,14 @@ void drawTower() {
     glPushMatrix();
     glColor3f(1.0f, 1.0f, 1.0f);
     glTranslatef(0.0f, 24.0f, 0.0f);
-    drawTexturedShaft();
+    drawTexturedShaft(shaftTex);
     glPopMatrix();
-
 
 
     // ----- HOURGLASS VIEWING DECK -----
     glPushMatrix();
     glTranslatef(0.0f, 40.0f, 0.0f);
-    drawHourglassDeck();
+    drawHourglassDeck(deckTex, lightID);
     glPopMatrix();
 
 
@@ -445,7 +443,7 @@ void drawTower() {
     glPushMatrix();
     glColor3f(1.0f, 1.0f, 1.0f);
     glTranslatef(0.0f, 54.0f, 0.0f);
-    drawPyramidRoof(10.4f, 14.0f);
+    drawPyramidRoof(10.4f, 14.0f, roofTex);
     glPopMatrix();
 
 
@@ -465,12 +463,12 @@ void drawTower() {
     // Flag
     glPushMatrix();
     glTranslatef(0.0f, 4.5f, 0.0f);
-    drawAnimatedFlag();
+    drawAnimatedFlag(flagTex);
     glPopMatrix();
 
     glPopMatrix();
     glPopMatrix();
 
-  
+
     glColor3f(1.0f, 1.0f, 1.0f);    // Pure White Wash
 }

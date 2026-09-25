@@ -15,7 +15,7 @@ bool showGrid = false;
 bool lightingEnabled = true;
 
 // For Axes 
-void drawAxes(){
+void drawAxes() {
 
     glDisable(GL_TEXTURE_2D);
 
@@ -46,12 +46,12 @@ void drawAxes(){
 }
 
 // For Grid
-void drawGrid(){
+void drawGrid() {
     glColor3f(0.5f, 0.5f, 0.5f);
 
     glBegin(GL_LINES);
 
-    for (int i = -300; i <= 300; i+=5){
+    for (int i = -300; i <= 300; i += 5) {
         glVertex3f((float)i, 0.0f, -300);
         glVertex3f((float)i, 0, 300);
 
@@ -63,7 +63,7 @@ void drawGrid(){
 }
 
 // For Lighting Functions
-void setupLighting(){
+void setupLighting() {
     GLfloat lightPosition[] = { sunX, sunY, sunZ, 1.0f };     // Light Position
 
     GLfloat ambientLight[] =
@@ -78,10 +78,10 @@ void setupLighting(){
 
     GLfloat specularLight[] =
     {
-		1.0f, 1.0f, 1.0f, 1.0f                              // Shiny highlights on reflective surfaces
+        1.0f, 1.0f, 1.0f, 1.0f                              // Shiny highlights on reflective surfaces
     };
 
-	// Assign Light Properties
+    // Assign Light Properties
     glLightfv(GL_LIGHT0, GL_POSITION, lightPosition);
     glLightfv(GL_LIGHT0, GL_AMBIENT, ambientLight);
     glLightfv(GL_LIGHT0, GL_DIFFUSE, diffuseLight);
@@ -89,7 +89,7 @@ void setupLighting(){
 }
 
 // For Sun 
-void drawSun(){
+void drawSun() {
 
     glPushMatrix();
 
@@ -109,13 +109,13 @@ void drawSun(){
     glDisable(GL_BLEND);
 
     // Change color with height
-    if (sunY > 80){
+    if (sunY > 80) {
         glColor3f(1.0f, 1.0f, 0.8f);
     }
-    else if (sunY > 40){
+    else if (sunY > 40) {
         glColor3f(1.0f, 0.9f, 0.3f);
     }
-    else{
+    else {
         glColor3f(1.0f, 0.5f, 0.2f);
     }
 
@@ -126,7 +126,7 @@ void drawSun(){
 }
 
 // Display Method
-void display(){
+void display() {
 
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
@@ -142,24 +142,25 @@ void display(){
     glColor3f(1.0f, 1.0f, 1.0f);
 
 
-    if (lightingEnabled){
+    if (lightingEnabled) {
         glEnable(GL_LIGHTING);
         glEnable(GL_LIGHT0);
 
         setupLighting();
-    }else{
+    }
+    else {
         glDisable(GL_LIGHTING);
     }
 
-    if (showGrid){
+    if (showGrid) {
         drawGrid();
     }
 
-    if (showAxes){
+    if (showAxes) {
         drawAxes();
     }
 
-	glEnable(GL_TEXTURE_2D);
+    glEnable(GL_TEXTURE_2D);
 
     if (showSun) {
         drawSun();
@@ -170,7 +171,17 @@ void display(){
     drawGround();
     drawSpectatorStand();
 
-    drawTower();
+    // Gryffindor (Red base) at 45 degrees
+    drawTower(45.0f, 0.70f, 0.15f, 0.15f, gryffindorTexture, gryffindorDeckTexture, gryffindorRoofTexture, gryffindorFlagTexture, GL_LIGHT1);
+
+    // Slytherin (Green base) at 135 degrees
+    drawTower(135.0f, 0.10f, 0.40f, 0.20f, slytherinTexture, slytherinDeckTexture, slytherinRoofTexture, slytherinFlagTexture, GL_LIGHT2);
+
+    // Ravenclaw (Blue base) at 225 degrees
+    drawTower(225.0f, 0.15f, 0.30f, 0.60f, ravenclawTexture, ravenclawDeckTexture, ravenclawRoofTexture, ravenclawFlagTexture, GL_LIGHT3);
+
+    // Hufflepuff (Yellow base) at 315 degrees
+    drawTower(315.0f, 0.80f, 0.65f, 0.15f, hufflepuffTexture, hufflepuffDeckTexture, hufflepuffRoofTexture, hufflepuffFlagTexture, GL_LIGHT4);
 
     drawGoalArea(-42.0f, false);
     drawGoalArea(42.0f, true);
@@ -185,17 +196,17 @@ void display(){
     drawAllGoalPosts();
 
 
-	glDisable(GL_TEXTURE_2D);
-    
+    glDisable(GL_TEXTURE_2D);
+
     // Turn off the tower light before the frame ends so it doesn't wrap around
     glDisable(GL_LIGHT1);
-   
+
 
     glutSwapBuffers();
 }
 
 
-void reshape(int w, int h){
+void reshape(int w, int h) {
     if (h == 0) h = 1;
 
     glViewport(0, 0, w, h);
@@ -213,7 +224,7 @@ void reshape(int w, int h){
     glMatrixMode(GL_MODELVIEW);
 }
 
-void init(){
+void init() {
     glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
 
     glEnable(GL_DEPTH_TEST);
@@ -248,7 +259,7 @@ int main(int argc, char** argv)
 
     glutDisplayFunc(display);
     glutReshapeFunc(reshape);
-	glutKeyboardFunc(keyboard);
+    glutKeyboardFunc(keyboard);
     glutIdleFunc(display);
 
     glutMainLoop();

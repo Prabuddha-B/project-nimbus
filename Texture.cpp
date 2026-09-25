@@ -21,10 +21,26 @@ GLuint woodTexture = 0;
 GLuint bannerTexture = 0;
 GLuint seatTexture = 0;
 GLuint dirtTexture = 0;
+
 GLuint gryffindorTexture = 0;
 GLuint gryffindorRoofTexture = 0;
 GLuint gryffindorFlagTexture = 0;
 GLuint gryffindorDeckTexture = 0;
+
+GLuint slytherinTexture = 0;
+GLuint slytherinRoofTexture = 0;
+GLuint slytherinFlagTexture = 0;
+GLuint slytherinDeckTexture = 0;
+
+GLuint ravenclawTexture = 0;
+GLuint ravenclawRoofTexture = 0;
+GLuint ravenclawFlagTexture = 0;
+GLuint ravenclawDeckTexture = 0;
+
+GLuint hufflepuffTexture = 0;
+GLuint hufflepuffRoofTexture = 0;
+GLuint hufflepuffFlagTexture = 0;
+GLuint hufflepuffDeckTexture = 0;
 
 void loadTextures(){
 
@@ -98,7 +114,7 @@ void loadTextures(){
     glBindTexture(GL_TEXTURE_2D, 0);
 
 
-    // -------------------- Tower  --------------------
+    // -------------------- Gryffindor Tower  --------------------
     gryffindorTexture = SOIL_load_OGL_texture("Textures/gryffindorTower.png", SOIL_LOAD_AUTO, SOIL_CREATE_NEW_ID, SOIL_FLAG_MIPMAPS);
     glBindTexture(GL_TEXTURE_2D, gryffindorTexture);
     glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);
@@ -108,7 +124,7 @@ void loadTextures(){
     glBindTexture(GL_TEXTURE_2D, 0);
 
 
-    // -------------------- Roof --------------------
+    // -------------------- Gryffindor Roof --------------------
 
     gryffindorRoofTexture = SOIL_load_OGL_texture("Textures/gryffindorRoof.png", SOIL_LOAD_AUTO, SOIL_CREATE_NEW_ID, SOIL_FLAG_MIPMAPS);
     glBindTexture(GL_TEXTURE_2D, gryffindorRoofTexture);
@@ -132,6 +148,134 @@ void loadTextures(){
     // -------------------- Gryffindor Deck --------------------
     gryffindorDeckTexture = SOIL_load_OGL_texture("Textures/gryffindorDeck.png", SOIL_LOAD_AUTO, SOIL_CREATE_NEW_ID, SOIL_FLAG_MIPMAPS);
     glBindTexture(GL_TEXTURE_2D, gryffindorDeckTexture);
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR_MIPMAP_LINEAR);
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+    glBindTexture(GL_TEXTURE_2D, 0);
+
+    
+
+    // -------------------- Slytherin Tower  --------------------
+    slytherinTexture = SOIL_load_OGL_texture("Textures/slytherinTower.png", SOIL_LOAD_AUTO, SOIL_CREATE_NEW_ID, SOIL_FLAG_MIPMAPS);
+    glBindTexture(GL_TEXTURE_2D, slytherinTexture);
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR_MIPMAP_LINEAR);
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+    glBindTexture(GL_TEXTURE_2D, 0);
+
+
+    // -------------------- Slytherin Roof --------------------
+
+    slytherinRoofTexture = SOIL_load_OGL_texture("Textures/slytherinRoof.png", SOIL_LOAD_AUTO, SOIL_CREATE_NEW_ID, SOIL_FLAG_MIPMAPS);
+    glBindTexture(GL_TEXTURE_2D, slytherinRoofTexture);
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR_MIPMAP_LINEAR);
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+    glBindTexture(GL_TEXTURE_2D, 0);
+
+
+    // -------------------- Slytherin Flag --------------------
+
+    slytherinFlagTexture = SOIL_load_OGL_texture("Textures/slytherinFlag.png", SOIL_LOAD_AUTO, SOIL_CREATE_NEW_ID, SOIL_FLAG_MIPMAPS);
+    glBindTexture(GL_TEXTURE_2D, slytherinFlagTexture);
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR_MIPMAP_LINEAR);
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+    glBindTexture(GL_TEXTURE_2D, 0);
+
+    // -------------------- Slytherin Deck --------------------
+    slytherinDeckTexture = SOIL_load_OGL_texture("Textures/slytherinDeck.png", SOIL_LOAD_AUTO, SOIL_CREATE_NEW_ID, SOIL_FLAG_MIPMAPS);
+    glBindTexture(GL_TEXTURE_2D, slytherinDeckTexture);
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR_MIPMAP_LINEAR);
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+    glBindTexture(GL_TEXTURE_2D, 0);
+
+
+    
+
+    // -------------------- Ravenclaw Tower  --------------------
+    ravenclawTexture = SOIL_load_OGL_texture("Textures/ravenclawTower.png", SOIL_LOAD_AUTO, SOIL_CREATE_NEW_ID, SOIL_FLAG_MIPMAPS);
+    glBindTexture(GL_TEXTURE_2D, ravenclawTexture);
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR_MIPMAP_LINEAR);
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+    glBindTexture(GL_TEXTURE_2D, 0);
+
+
+    // -------------------- Ravenclaw Roof --------------------
+
+    ravenclawRoofTexture = SOIL_load_OGL_texture("Textures/ravenclawRoof.png", SOIL_LOAD_AUTO, SOIL_CREATE_NEW_ID, SOIL_FLAG_MIPMAPS);
+    glBindTexture(GL_TEXTURE_2D, ravenclawRoofTexture);
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR_MIPMAP_LINEAR);
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+    glBindTexture(GL_TEXTURE_2D, 0);
+
+
+    // -------------------- Ravenclaw Flag --------------------
+
+    ravenclawFlagTexture = SOIL_load_OGL_texture("Textures/ravenclawFlag.png", SOIL_LOAD_AUTO, SOIL_CREATE_NEW_ID, SOIL_FLAG_MIPMAPS);
+    glBindTexture(GL_TEXTURE_2D, ravenclawFlagTexture);
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR_MIPMAP_LINEAR);
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+    glBindTexture(GL_TEXTURE_2D, 0);
+
+    // -------------------- Ravenclaw Deck --------------------
+    ravenclawDeckTexture = SOIL_load_OGL_texture("Textures/ravenclawDeck.png", SOIL_LOAD_AUTO, SOIL_CREATE_NEW_ID, SOIL_FLAG_MIPMAPS);
+    glBindTexture(GL_TEXTURE_2D, ravenclawDeckTexture);
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR_MIPMAP_LINEAR);
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+    glBindTexture(GL_TEXTURE_2D, 0);
+
+
+   
+
+    // -------------------- Hufflepuff Tower  --------------------
+    hufflepuffTexture = SOIL_load_OGL_texture("Textures/hufflepuffTower.png", SOIL_LOAD_AUTO, SOIL_CREATE_NEW_ID, SOIL_FLAG_MIPMAPS);
+    glBindTexture(GL_TEXTURE_2D, hufflepuffTexture);
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR_MIPMAP_LINEAR);
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+    glBindTexture(GL_TEXTURE_2D, 0);
+
+
+    // -------------------- Hufflepuff Roof --------------------
+
+    hufflepuffRoofTexture = SOIL_load_OGL_texture("Textures/hufflepuffRoof.png", SOIL_LOAD_AUTO, SOIL_CREATE_NEW_ID, SOIL_FLAG_MIPMAPS);
+    glBindTexture(GL_TEXTURE_2D, hufflepuffRoofTexture);
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR_MIPMAP_LINEAR);
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+    glBindTexture(GL_TEXTURE_2D, 0);
+
+
+    // -------------------- Hufflepuff Flag --------------------
+
+    hufflepuffFlagTexture = SOIL_load_OGL_texture("Textures/hufflepuffFlag.png", SOIL_LOAD_AUTO, SOIL_CREATE_NEW_ID, SOIL_FLAG_MIPMAPS);
+    glBindTexture(GL_TEXTURE_2D, hufflepuffFlagTexture);
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR_MIPMAP_LINEAR);
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+    glBindTexture(GL_TEXTURE_2D, 0);
+
+    // -------------------- Hufflepuff Deck --------------------
+    hufflepuffDeckTexture = SOIL_load_OGL_texture("Textures/hufflepuffDeck.png", SOIL_LOAD_AUTO, SOIL_CREATE_NEW_ID, SOIL_FLAG_MIPMAPS);
+    glBindTexture(GL_TEXTURE_2D, hufflepuffDeckTexture);
     glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);
     glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
     glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR_MIPMAP_LINEAR);
