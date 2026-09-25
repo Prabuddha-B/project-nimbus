@@ -10,7 +10,7 @@ const float PITCH_LENGTH = 120.0f;
 const float PITCH_WIDTH = 60.0f;
 
 // World Dimensions
-const float WORLD_SIZE = 400.0f;
+const float WORLD_SIZE = 2000.0f;
 const float WORLD_Y = -0.5f;
 
 // Draw the ground plane for the world
@@ -31,13 +31,13 @@ void drawWorldGround(){
     glTexCoord2f(0, 0);
     glVertex3f(-SIZE, WORLD_Y, -SIZE);
 
-    glTexCoord2f(20, 0);
+    glTexCoord2f(100, 0);
     glVertex3f(SIZE, WORLD_Y, -SIZE);
 
-    glTexCoord2f(20, 20);
+    glTexCoord2f(100, 100);
     glVertex3f(SIZE, WORLD_Y, SIZE);
 
-    glTexCoord2f(0, 20);
+    glTexCoord2f(0, 100);
     glVertex3f(-SIZE, WORLD_Y, SIZE);
 
     glEnd();

@@ -21,6 +21,7 @@ GLuint woodTexture = 0;
 GLuint bannerTexture = 0;
 GLuint seatTexture = 0;
 GLuint dirtTexture = 0;
+GLuint castleTexture = 0;
 
 GLuint gryffindorTexture = 0;
 GLuint gryffindorRoofTexture = 0;
@@ -278,6 +279,17 @@ void loadTextures(){
     glBindTexture(GL_TEXTURE_2D, hufflepuffDeckTexture);
     glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);
     glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR_MIPMAP_LINEAR);
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+    glBindTexture(GL_TEXTURE_2D, 0);
+
+
+	// -------------------- Castle Texture --------------------
+    // Must use SOIL_LOAD_RGBA instead of AUTO to load the transparency channel
+    castleTexture = SOIL_load_OGL_texture("Textures/castle.png", SOIL_LOAD_RGBA, SOIL_CREATE_NEW_ID, SOIL_FLAG_MIPMAPS);
+    glBindTexture(GL_TEXTURE_2D, castleTexture);
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP); 
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP);
     glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR_MIPMAP_LINEAR);
     glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
     glBindTexture(GL_TEXTURE_2D, 0);

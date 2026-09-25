@@ -127,6 +127,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="Camera.cpp" />
+    <ClCompile Include="Castle.cpp" />
     <ClCompile Include="GoalPost.cpp" />
     <ClCompile Include="Ground.cpp" />
     <ClCompile Include="main.cpp" />
@@ -137,6 +138,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Camera.h" />
+    <ClInclude Include="Castle.h" />
     <ClInclude Include="Controls.h" />
     <ClInclude Include="GoalPost.h" />
     <ClInclude Include="Ground.h" />

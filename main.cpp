@@ -9,6 +9,7 @@
 #include "Shadow.h"
 #include "Controls.h"
 #include "Tower.h"
+#include "Castle.h"
 
 bool showAxes = false;
 bool showGrid = false;
@@ -128,6 +129,15 @@ void drawSun() {
 // Display Method
 void display() {
 
+    // 1. DYNAMIC SKY: Pick the sky color BEFORE clearing the screen!
+    if (lightingEnabled) {
+        glClearColor(0.02f, 0.05f, 0.1f, 1.0f); // Nighttime Dark Blue
+    }
+    else {
+        glClearColor(0.4f, 0.65f, 0.9f, 1.0f);  // Daylight Sky Blue
+    }
+
+    // Now actually clear the screen using the color we just picked
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
     glLoadIdentity();
@@ -141,11 +151,9 @@ void display() {
     // Reset the global color state to pure white at the start of every frame
     glColor3f(1.0f, 1.0f, 1.0f);
 
-
     if (lightingEnabled) {
         glEnable(GL_LIGHTING);
         glEnable(GL_LIGHT0);
-
         setupLighting();
     }
     else {
@@ -195,16 +203,19 @@ void display() {
 
     drawAllGoalPosts();
 
-
     glDisable(GL_TEXTURE_2D);
 
-    // Turn off the tower light before the frame ends so it doesn't wrap around
+    // 2. Turn off ALL tower lights before the frame ends so they don't wrap around
     glDisable(GL_LIGHT1);
+    glDisable(GL_LIGHT2);
+    glDisable(GL_LIGHT3);
+    glDisable(GL_LIGHT4);
 
+    // Castle goes dead last so it successfully blends its transparent pixels over the new sky
+    drawCastle();
 
     glutSwapBuffers();
 }
-
 
 void reshape(int w, int h) {
     if (h == 0) h = 1;

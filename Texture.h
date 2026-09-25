@@ -10,6 +10,7 @@ extern GLuint woodTexture;
 extern GLuint bannerTexture;
 extern GLuint seatTexture;
 extern GLuint dirtTexture;
+extern GLuint castleTexture;
 
 
 extern GLuint gryffindorTexture;
