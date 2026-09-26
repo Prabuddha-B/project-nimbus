@@ -128,6 +128,8 @@
   <ItemGroup>
     <ClCompile Include="Camera.cpp" />
     <ClCompile Include="Castle.cpp" />
+    <ClCompile Include="FlyingCar.cpp" />
+    <ClCompile Include="Forest.cpp" />
     <ClCompile Include="GoalPost.cpp" />
     <ClCompile Include="Ground.cpp" />
     <ClCompile Include="main.cpp" />
@@ -141,6 +143,8 @@
     <ClInclude Include="Camera.h" />
     <ClInclude Include="Castle.h" />
     <ClInclude Include="Controls.h" />
+    <ClInclude Include="FlyingCar.h" />
+    <ClInclude Include="Forest.h" />
     <ClInclude Include="GoalPost.h" />
     <ClInclude Include="Ground.h" />
     <ClInclude Include="Shadow.h" />

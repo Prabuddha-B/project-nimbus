@@ -14,7 +14,10 @@ extern GLuint castleTexture;
 extern GLuint daySkyTexture;
 extern GLuint nightSkyTexture;
 extern GLuint mountainTexture;
-
+extern GLuint treeTexture;
+extern GLuint carBodyTexture;
+extern GLuint carWindowTexture;
+extern GLuint carTireTexture;
 
 extern GLuint gryffindorTexture;
 extern GLuint gryffindorRoofTexture;

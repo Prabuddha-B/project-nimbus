@@ -13,33 +13,33 @@ const float PITCH_WIDTH = 60.0f;
 const float WORLD_SIZE = 2000.0f;
 const float WORLD_Y = -0.5f;
 
-
-// Draw the ground plane for the world
-void drawWorldGround(){
+// Draws the main grass field.
+void drawGround() {
 
     glEnable(GL_TEXTURE_2D);
 
-    glBindTexture(GL_TEXTURE_2D, dirtTexture);
+    glBindTexture(GL_TEXTURE_2D, grassTexture);
 
-    glColor3f(0.8f, 0.8f, 0.8f);    // Slightly darkens texture.
+    glColor3f(1.0f, 1.0f, 1.0f);
 
-    const float SIZE = WORLD_SIZE;
-
-    glBegin(GL_QUADS);
+    glBegin(GL_POLYGON);
 
     glNormal3f(0.0f, 1.0f, 0.0f);
 
-    glTexCoord2f(0, 0);
-    glVertex3f(-SIZE, WORLD_Y, -SIZE);
+    for (int angle = 0; angle < 360; angle++) {
 
-    glTexCoord2f(100, 0);
-    glVertex3f(SIZE, WORLD_Y, -SIZE);
+        float theta = angle * 3.14159f / 180.0f;
 
-    glTexCoord2f(100, 100);
-    glVertex3f(SIZE, WORLD_Y, SIZE);
+        float x = (PITCH_WIDTH / 2) * cos(theta);
+        float z = (PITCH_LENGTH / 2) * sin(theta);
 
-    glTexCoord2f(0, 100);
-    glVertex3f(-SIZE, WORLD_Y, SIZE);
+        // Texture Coordinates
+        float u = ((x + PITCH_WIDTH / 2) / PITCH_WIDTH);
+        float v = ((z + PITCH_LENGTH / 2) / PITCH_LENGTH);
+
+        glTexCoord2f(u, v);
+        glVertex3f(x, 0.0f, z);
+    }
 
     glEnd();
 
@@ -47,6 +47,9 @@ void drawWorldGround(){
 
     glDisable(GL_TEXTURE_2D);
 }
+
+
+
 
 
 // Draws the embankment around the pitch
@@ -119,39 +122,44 @@ void drawEmbankment(){
 }
 
 
-// Draws the main grass field.
-void drawGround(){
+// Draw the ground plane for the world (Subdivided to fix Lighting and Fog!)
+void drawWorldGround() {
+    glEnable(GL_TEXTURE_2D);
+    glBindTexture(GL_TEXTURE_2D, dirtTexture);
+    glColor3f(0.8f, 0.8f, 0.8f);
 
-	glEnable(GL_TEXTURE_2D);
+    // --- NEW FIX: Kill the Specular "Shiny" Reflection ---
+    // Dirt should be matte. This completely removes the glowing cross that follows the camera.
+    GLfloat matte[] = { 0.0f, 0.0f, 0.0f, 1.0f };
+    glMaterialfv(GL_FRONT, GL_SPECULAR, matte);
+    glMaterialf(GL_FRONT, GL_SHININESS, 0.0f);
 
-    glBindTexture(GL_TEXTURE_2D, grassTexture);
+    float step = 100.0f; // Break the massive floor into chunks
 
-    glColor3f(1.0f, 1.0f, 1.0f);
-
-    glBegin(GL_POLYGON);
-
+    glBegin(GL_QUADS);
     glNormal3f(0.0f, 1.0f, 0.0f);
 
-    for (int angle = 0; angle < 360; angle++){
+    for (float x = -WORLD_SIZE; x < WORLD_SIZE; x += step) {
+        for (float z = -WORLD_SIZE; z < WORLD_SIZE; z += step) {
 
-        float theta = angle * 3.14159f / 180.0f;
+            // Texture math divided by 40.0f to perfectly match your original 0-100 UV scale
+            glTexCoord2f((x + WORLD_SIZE) / 40.0f, (z + WORLD_SIZE) / 40.0f);
+            glVertex3f(x, WORLD_Y, z);
 
-        float x = (PITCH_WIDTH / 2) * cos(theta);
-        float z = (PITCH_LENGTH / 2) * sin(theta);
+            glTexCoord2f((x + step + WORLD_SIZE) / 40.0f, (z + WORLD_SIZE) / 40.0f);
+            glVertex3f(x + step, WORLD_Y, z);
 
-        // Texture Coordinates
-        float u = ((x + PITCH_WIDTH / 2) / PITCH_WIDTH);
-        float v = ((z + PITCH_LENGTH / 2) / PITCH_LENGTH);
+            glTexCoord2f((x + step + WORLD_SIZE) / 40.0f, (z + step + WORLD_SIZE) / 40.0f);
+            glVertex3f(x + step, WORLD_Y, z + step);
 
-        glTexCoord2f(u, v);
-        glVertex3f(x, 0.0f, z);
+            glTexCoord2f((x + WORLD_SIZE) / 40.0f, (z + step + WORLD_SIZE) / 40.0f);
+            glVertex3f(x, WORLD_Y, z + step);
+        }
     }
 
     glEnd();
-
     glBindTexture(GL_TEXTURE_2D, 0);
-
-	glDisable(GL_TEXTURE_2D);
+    glDisable(GL_TEXTURE_2D);
 }
 
 
@@ -276,5 +284,56 @@ void drawPerimeterMountains() {
     glBindTexture(GL_TEXTURE_2D, 0);
     glDisable(GL_TEXTURE_2D);
 
+    glColor3f(1.0f, 1.0f, 1.0f);
+}
+
+extern bool lightingEnabled;
+
+void drawPathLights() {
+    // Disable textures so the posts and bulbs render as solid, clean colors
+    glDisable(GL_TEXTURE_2D);
+
+    int numLights = 16;
+    GLUquadric* quad = gluNewQuadric();
+    gluQuadricNormals(quad, GLU_SMOOTH);
+
+    for (int i = 0; i < numLights; i++) {
+        // Calculate an elliptical path just outside the embankment
+        float theta = (float)i * (3.14159f * 2.0f / numLights);
+        float x = 110.0f * cos(theta);
+        float z = 150.0f * sin(theta);
+
+        glPushMatrix();
+        glTranslatef(x, 0.0f, z);
+
+        // 1. Draw the Wooden Post
+        glColor3f(0.2f, 0.15f, 0.1f); // Dark wood color
+        glPushMatrix();
+        glRotatef(-90.0f, 1.0f, 0.0f, 0.0f);
+        gluCylinder(quad, 1.0f, 1.0f, 12.0f, 8, 1);
+        glPopMatrix();
+
+        // 2. Draw the Glass Bulb
+        glTranslatef(0.0f, 13.0f, 0.0f);
+
+        if (lightingEnabled) {
+            // NIGHT MODE: Turn on material emission to make the bulb glow orange/yellow
+            GLfloat emission[] = { 1.0f, 0.8f, 0.1f, 1.0f };
+            glMaterialfv(GL_FRONT, GL_EMISSION, emission);
+        }
+
+        glColor3f(1.0f, 0.9f, 0.4f); // Bulb base color
+        glutSolidSphere(1.8f, 16, 16);
+
+        if (lightingEnabled) {
+            // NIGHT MODE: Turn emission back off immediately so it doesn't affect the ground
+            GLfloat no_emission[] = { 0.0f, 0.0f, 0.0f, 1.0f };
+            glMaterialfv(GL_FRONT, GL_EMISSION, no_emission);
+        }
+
+        glPopMatrix();
+    }
+
+    gluDeleteQuadric(quad);
     glColor3f(1.0f, 1.0f, 1.0f);
 }

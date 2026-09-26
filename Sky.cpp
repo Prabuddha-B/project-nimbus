@@ -7,6 +7,7 @@
 #include "Controls.h"
 
 void drawSkydome() {
+    glDisable(GL_FOG);
     glPushMatrix();
 
     // Center the sphere 

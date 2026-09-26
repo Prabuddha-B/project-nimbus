@@ -103,8 +103,7 @@ void keyboard(unsigned char key, int x, int y){
     }
 
 
-    printf(
-        "Sun Position: %.1f %.1f %.1f\n", sunX, sunY, sunZ);
+    
 
 
     glutPostRedisplay();

@@ -11,6 +11,8 @@
 #include "Tower.h"
 #include "Castle.h"
 #include "Sky.h"
+#include "Forest.h"
+#include "FlyingCar.h"
 
 
 bool showAxes = false;
@@ -150,9 +152,19 @@ void display() {
         glEnable(GL_LIGHTING);
         glEnable(GL_LIGHT0);
         setupLighting();
+
+        // ENABLE NIGHT FOG
+        glEnable(GL_FOG);
+        GLfloat fogColor[] = { 0.05f, 0.1f, 0.15f, 1.0f }; // Deep midnight blue
+        glFogfv(GL_FOG_COLOR, fogColor);
+        glFogi(GL_FOG_MODE, GL_LINEAR);
+        glFogf(GL_FOG_START, 50.0f); // Stays clear over the pitch
+        glFogf(GL_FOG_END, 2000.0f);
+
     }
     else {
         glDisable(GL_LIGHTING);
+        glDisable(GL_FOG);
     }
 
     if (showGrid) {
@@ -171,7 +183,9 @@ void display() {
 
     drawWorldGround();
     drawPerimeterMountains();
-
+    drawPathLights();
+	drawForest();
+    drawFlyingCar();
     drawEmbankment();
     drawGround();
     drawSpectatorStand();
@@ -212,6 +226,10 @@ void display() {
     drawCastle();
 
     glutSwapBuffers();
+}
+
+void idle() {
+    glutPostRedisplay();
 }
 
 void reshape(int w, int h) {
@@ -269,6 +287,10 @@ int main(int argc, char** argv)
     glutReshapeFunc(reshape);
     glutKeyboardFunc(keyboard);
     glutIdleFunc(display);
+	glutIdleFunc(idle);
+
+	initForest();
+    
 
     glutMainLoop();
 
