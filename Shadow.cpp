@@ -25,14 +25,16 @@ void drawShadowGoalPost(float x, float z, float height){
     float dx = hoopShadowX - x;
     float dz = hoopShadowZ - z;
 
+    // Length : Distance Formula
     float len = sqrt(dx * dx + dz * dz);
 
+	// Normalize direction vector
     if (len > 0.0f){
         dx /= len;
         dz /= len;
     }
 
-    // Connect line to edge of hoop shadow instead of centre
+    // Connect line to edge of hoop shadow instead of center
     float connectionX = hoopShadowX - dx * hoopRadius;
 
     float connectionZ = hoopShadowZ - dz * hoopRadius;
@@ -73,7 +75,7 @@ void drawShadowGoalPost(float x, float z, float height){
 // Draws all projected goal post shadows
 void drawGoalPostShadows(){
 
-    // Do not draw shadows when the sun is below the ground
+    // No shadows when the sun is below the ground
     if (sunY <= 0.0f){
         return;
     }
@@ -81,11 +83,11 @@ void drawGoalPostShadows(){
     glDisable(GL_LIGHTING);
     glDisable(GL_TEXTURE_2D);
 
-    glEnable(GL_BLEND);
+	glEnable(GL_BLEND);  // Enable Transparency
 
     glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 
-    glColor4f( 0.0f, 0.0f, 0.0f, 0.35f);
+    glColor4f( 0.0f, 0.0f, 0.0f, 0.35f); // Black 35% Opacity Shadow
 
     drawShadowGoalPost(-10.0f, -50.0f, 12.0f);
     drawShadowGoalPost(0.0f, -50.0f, 16.0f);
@@ -107,6 +109,7 @@ void drawOuterWallShadow(){
     if (sunY <= 0.0f)
         return;
 
+    // Wall Shape Dimensions
     const float OUTER_X = 42.0f;
     const float OUTER_Z = 72.0f;
     const float HEIGHT = 10.0f;

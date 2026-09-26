@@ -17,3 +17,9 @@ void drawWorldGround();
 
 // Draws the embankment around the pitch
 void drawEmbankment();
+
+// Draws a lightweight ring of mountains at the edge of the world
+void drawPerimeterMountains();
+
+// Draws a ring of glowing path lamps around the stadium
+void drawPathLights();
