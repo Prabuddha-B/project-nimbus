@@ -11,6 +11,9 @@ extern GLuint bannerTexture;
 extern GLuint seatTexture;
 extern GLuint dirtTexture;
 extern GLuint castleTexture;
+extern GLuint daySkyTexture;
+extern GLuint nightSkyTexture;
+extern GLuint mountainTexture;
 
 
 extern GLuint gryffindorTexture;

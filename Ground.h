@@ -17,3 +17,6 @@ void drawWorldGround();
 
 // Draws the embankment around the pitch
 void drawEmbankment();
+
+// Draws a lightweight ring of mountains at the edge of the world
+void drawPerimeterMountains();

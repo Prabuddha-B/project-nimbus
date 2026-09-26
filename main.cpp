@@ -10,6 +10,8 @@
 #include "Controls.h"
 #include "Tower.h"
 #include "Castle.h"
+#include "Sky.h"
+
 
 bool showAxes = false;
 bool showGrid = false;
@@ -129,15 +131,6 @@ void drawSun() {
 // Display Method
 void display() {
 
-    // 1. DYNAMIC SKY: Pick the sky color BEFORE clearing the screen!
-    if (lightingEnabled) {
-        glClearColor(0.02f, 0.05f, 0.1f, 1.0f); // Nighttime Dark Blue
-    }
-    else {
-        glClearColor(0.4f, 0.65f, 0.9f, 1.0f);  // Daylight Sky Blue
-    }
-
-    // Now actually clear the screen using the color we just picked
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
     glLoadIdentity();
@@ -150,6 +143,8 @@ void display() {
 
     // Reset the global color state to pure white at the start of every frame
     glColor3f(1.0f, 1.0f, 1.0f);
+
+	drawSkydome();
 
     if (lightingEnabled) {
         glEnable(GL_LIGHTING);
@@ -175,6 +170,8 @@ void display() {
     }
 
     drawWorldGround();
+    drawPerimeterMountains();
+
     drawEmbankment();
     drawGround();
     drawSpectatorStand();
@@ -229,7 +226,7 @@ void reshape(int w, int h) {
         60.0,
         (float)w / (float)h,
         1.0,
-        1000.0
+        4000.0
     );
 
     glMatrixMode(GL_MODELVIEW);

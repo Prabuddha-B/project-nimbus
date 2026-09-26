@@ -132,6 +132,7 @@
     <ClCompile Include="Ground.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="Shadow.cpp" />
+    <ClCompile Include="Sky.cpp" />
     <ClCompile Include="SpectatorStand.cpp" />
     <ClCompile Include="Texture.cpp" />
     <ClCompile Include="Tower.cpp" />
@@ -143,6 +144,7 @@
     <ClInclude Include="GoalPost.h" />
     <ClInclude Include="Ground.h" />
     <ClInclude Include="Shadow.h" />
+    <ClInclude Include="Sky.h" />
     <ClInclude Include="SpectatorStand.h" />
     <ClInclude Include="Texture.h" />
     <ClInclude Include="Tower.h" />

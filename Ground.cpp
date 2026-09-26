@@ -13,6 +13,7 @@ const float PITCH_WIDTH = 60.0f;
 const float WORLD_SIZE = 2000.0f;
 const float WORLD_Y = -0.5f;
 
+
 // Draw the ground plane for the world
 void drawWorldGround(){
 
@@ -214,4 +215,66 @@ void drawCenterCircle(){
     }
 
     glEnd();
+}
+
+
+// Draws ring of mountains 
+void drawPerimeterMountains() {
+    glEnable(GL_TEXTURE_2D);
+    glBindTexture(GL_TEXTURE_2D, mountainTexture);
+
+    glColor3f(0.8f, 0.8f, 0.8f);
+
+    int slices = 100;
+    int rings = 6;
+
+    float innerRadius = 800.0f;
+    float outerRadius = 1700.0f;
+    float ringWidth = (outerRadius - innerRadius) / (rings - 1);
+
+    for (int i = 0; i < rings - 1; i++) {
+        float r1 = innerRadius + i * ringWidth;
+        float r2 = innerRadius + (i + 1) * ringWidth;
+
+        glBegin(GL_QUAD_STRIP);
+        for (int j = 0; j <= slices; j++) {
+            float theta = (float)j * (2.0f * 3.14159f / slices);
+
+            float noise = sin(theta * 5.0f) * 80.0f + cos(theta * 11.0f) * 50.0f + sin(theta * 3.0f) * 140.0f;
+
+            // --- INNER VERTEX ---
+            float x1 = r1 * cos(theta);
+            float z1 = r1 * sin(theta);
+            float blend1 = sin((r1 - innerRadius) / (outerRadius - innerRadius) * 3.14159f);
+            float y1 = (WORLD_Y - 5.0f) + (150.0f + noise) * blend1;
+
+            // --- OUTER VERTEX ---
+            float x2 = r2 * cos(theta);
+            float z2 = r2 * sin(theta);
+            float blend2 = sin((r2 - innerRadius) / (outerRadius - innerRadius) * 3.14159f);
+            float y2 = (WORLD_Y - 5.0f) + (150.0f + noise) * blend2;
+
+            // FLIPPED NORMALS: Pointing outward and upward to perfectly match the ground lighting
+            float nx = cos(theta);
+            float nz = sin(theta);
+            float ny = 1.5f;
+            float len = sqrt(nx * nx + ny * ny + nz * nz);
+
+            glNormal3f(nx / len, ny / len, nz / len);
+
+            glTexCoord2f((x1 + WORLD_SIZE) / 40.0f, (z1 + WORLD_SIZE) / 40.0f);
+            glVertex3f(x1, y1, z1);
+
+            glNormal3f(nx / len, ny / len, nz / len);
+
+            glTexCoord2f((x2 + WORLD_SIZE) / 40.0f, (z2 + WORLD_SIZE) / 40.0f);
+            glVertex3f(x2, y2, z2);
+        }
+        glEnd();
+    }
+
+    glBindTexture(GL_TEXTURE_2D, 0);
+    glDisable(GL_TEXTURE_2D);
+
+    glColor3f(1.0f, 1.0f, 1.0f);
 }
