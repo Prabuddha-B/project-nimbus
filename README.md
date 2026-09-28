@@ -1,79 +1,39 @@
 # Project Nimbus
 ### CSC3081 – Individual Computer Graphics Project
 
-A 3D Quidditch Stadium simulation developed using **C++**, **OpenGL**, and **GLUT** as part of the CSC3081 Computer Graphics module.
+A fully playable 3D Quidditch simulation and mini-game developed using **C++**, **OpenGL**, and **GLUT** as part of the CSC3081 Computer Graphics module.
 
-Project Nimbus recreates a Quidditch stadium inspired by the Harry Potter universe, featuring a fully modelled 3D environment, interactive camera controls, texture mapping, dynamic lighting, shadow projection, and procedurally generated stadium geometry.
+Project Nimbus recreates a highly detailed, interactive Quidditch stadium inspired by the Harry Potter universe. What began as a static 3D environment has been transformed into a complete mini-game featuring a rigged, textured player model, smooth momentum-based physics, procedural AI, and a fully managed game state engine.
 
 ---
 
 ## Features
 
-### Core Graphics Components
+### Gameplay & Core Mechanics
+- **Playable Mini-Game:** Complete gameplay loop with Start, Play, and Victory states.
+- **Smooth Flight Physics:** Joystick-style analog handling with acceleration, drag friction, and smooth momentum-based steering.
+- **Procedural AI (The Golden Snitch):** Autonomous waypoint navigation featuring vector weaving, speed surging, and active player-evasion mechanics.
+- **Collision Detection:** Mathematical elliptical boundaries keep entities confined to the pitch, while distance-based hitboxes handle Snitch-catching.
+- **2D UI Overlays:** Orthographic projection is used to render start-screen instructions and a massive, scalable stroke-font victory screen.
 
-- 3D object modelling
-- Geometric transformations
-- Hierarchical transformations
-- Perspective projection
-- Interactive camera system
-- Keyboard controls
-- OpenGL lighting and materials
-- Texture mapping
-- Real-time rendering
-- Shadow projection (Advanced Technique)
+### Advanced Graphics & Environment
+- **Dynamic Camera System:** Switch seamlessly between Free Roam, Chase Cam (locked behind the player), Tactical Top-Down, and a Cinematic Front Camera upon victory.
+- **Day/Night Cycle:** Toggle between a bright daytime environment and a moody night scene featuring volumetric fog and dynamic lighting from the stadium towers.
+- **Hierarchical 3D Modelling:** A fully rigged player model constructed from hierarchical primitives, featuring a dynamically animating cape using overlapping sine waves.
+- **Rich Environments:** Surrounding procedurally placed pine forests, a backdrop of Hogwarts Castle, a flying Ford Anglia with an elliptical flight path, and towering House spectator stands.
+- **Shadow Projection:** Planar shadow projection matrix rendering dynamic ground shadows that react to light position.
 
-### Stadium Components
+### Texturing & Materials
+The project uses image-based texture mapping extensively across the environment and characters:
 
-- Elliptical Quidditch pitch
-- Textured grass playing field
-- Textured sand goal areas
-- Six Quidditch goal posts
-- Multi-tier spectator seating
-- Wooden outer stadium wall
-- Decorative banner ring
-- Wooden spectator deck
-- Raised earth embankment surrounding the stadium
-
-### Lighting System
-
-- Movable sunlight source
-- Ambient lighting
-- Diffuse lighting
-- Specular highlights
-- Real-time light positioning controls
-- Sun visualisation sphere
-- Lighting enable/disable toggle
-
-### Shadow Projection
-
-The project implements planar shadow projection using a shadow matrix generated from the light position and ground plane.
-
-Shadowed objects include:
-
-- Quidditch goal posts
-- Goal rings
-- Supporting structures
-
-Features:
-
-- Real-time shadow updates
-- Dynamic shadows based on light movement
-- Adjustable shadow projection scaling
-- Ground plane shadow rendering
-
-### Texture Mapping
-
-The project uses image-based texture mapping for:
-
-| Object | Texture |
-|----------|----------|
-| Pitch | Grass Texture |
-| Goal Areas | Sand Texture |
-| Goal Posts | Metal Texture |
-| Stadium Wall | Wood Texture |
-| Stadium Banners | Banner Texture |
-| Seating Tiers | Seat Texture |
-| Surrounding Terrain | Ground Texture |
+| Object | Texture | Object | Texture |
+|----------|----------|----------|----------|
+| **Pitch** | Grass | **Player Body** | Quidditch Robes |
+| **Goal Areas** | Sand | **Player Cape** | Gryffindor Crest |
+| **Goal Posts** | Metal | **Broomstick** | Wood & Bristles |
+| **Stadium Wall**| Wood | **Player Head** | Custom Face Mapping |
+| **Seating** | Stadium Seats | **Towers** | House Flags & Brick |
+| **Surroundings**| Terrain | **Castle** | Stone Walls & Roofs |
 
 ---
 
@@ -81,8 +41,7 @@ The project uses image-based texture mapping for:
 
 - C++
 - OpenGL (Fixed Pipeline)
-- GLUT
-- GLU
+- GLUT / GLU
 - SOIL2 Texture Library
 - Visual Studio 2022
 
@@ -93,175 +52,79 @@ The project uses image-based texture mapping for:
 ```text
 Project_Nimbus/
 │
-├── main.cpp
+├── main.cpp                # Core rendering loop, 2D UI overlays, and input handling
 │
-├── Camera.cpp
-├── Camera.h
+├── Game.h / .cpp           # Game state machine, boundary math, and smooth physics engine
+├── Player.h / .cpp         # Hierarchical 3D player model and dynamic cape animation
+├── Snitch.h / .cpp         # Procedural AI, vector weaving, and evasion logic
+├── Camera.h / .cpp         # Multi-mode camera logic and boolean input flags
 │
-├── Controls.cpp
-├── Controls.h
+├── Ground.h / .cpp         # Stadium geometry, pitch, and boundary lines
+├── SpectatorStand.h / .cpp # Parametric seating tiers and walls
+├── Tower.h / .cpp          # Four house towers with dynamic point lights
+├── GoalPost.h / .cpp       # Goal rings and poles
+├── Forest.h / .cpp         # Procedural tree generation and layout
+├── Castle.h / .cpp         # Backdrop environment rendering
+├── Sky.h / .cpp            # Skydome, Sun, and Day/Night cycle
+├── FlyingCar.h / .cpp      # Animated background vehicle
 │
-├── Ground.cpp
-├── Ground.h
+├── Shadow.h / .cpp         # Planar shadow matrix calculations
+├── Controls.h / .cpp       # Legacy debug controls
+├── Texture.h / .cpp        # SOIL2 texture loading definitions
 │
-├── GoalPost.cpp
-├── GoalPost.h
-│
-├── SpectatorStand.cpp
-├── SpectatorStand.h
-│
-├── Shadow.cpp
-├── Shadow.h
-│
-├── Texture.cpp
-├── Texture.h
-│
-└── Textures/
-    ├── grass.jpg
-    ├── sand.jpg
-    ├── metal.jpg
-    ├── wood.jpg
-    ├── banner.png
-    ├── seats.jpg
-    └── terrain.jpg
+└── Textures/               # .jpg and .png assets for all models and environments
+
+
 ```
-
----
-
-## Controls
-
-### Camera Controls
-
-| Key | Action |
-|------|---------|
-| W | Move Forward |
-| S | Move Backward |
-| A | Move Left |
-| D | Move Right |
-| Q | Move Up |
-| E | Move Down |
-
-### Sun Controls
-
-| Key | Action |
-|------|---------|
-| I | Move Sun Up |
-| K | Move Sun Down |
-| J | Move Sun Left |
-| L | Move Sun Right |
-| U | Move Sun Backward |
-| O | Move Sun Forward |
-| P | Toggle Sun Visibility |
-
-### Scene Controls
-
-| Key | Action |
-|------|---------|
-| G | Toggle Ground Plane |
-| X | Toggle Coordinate Axes |
-| Z | Toggle Lighting On / Off |
 
 ---
 
 ## Technical Highlights
 
-### Parametric Stadium Geometry
+### 1. Procedural Snitch AI & Vector Weaving
 
-The stadium structure is generated using parametric equations based on trigonometric functions:
+To mimic the erratic behavior of the Golden Snitch, the AI calculates a normalized straight-line vector toward a random waypoint and modifies it every frame by adding overlapping `sin()` and `cos()` waves to a perpendicular vector. Combined with active player-distance evasion logic, this creates chaotic and organic flight paths that closely resemble the unpredictable movement of the Snitch.
 
-```cpp
-x = radiusX * cos(theta);
-z = radiusZ * sin(theta);
+### 2. Momentum-Based Physics
+
+Keyboard inputs are decoupled from direct movement. Instead, key presses toggle boolean state flags that are processed by a physics engine each frame. The engine calculates acceleration, velocity limits, and drag friction to produce smooth, joystick-like movement rather than instant positional changes.
+
+### 3. Mathematical Collision Confinement
+
+Instead of relying on complex mesh collision detection, the playable area is constrained mathematically using an ellipse equation:
+
+```text
+(x² / a²) + (z² / b²) ≤ 1
 ```
 
-This approach enables:
+Each frame, the player's and Snitch's next positions are evaluated against this boundary. If the calculated value exceeds 1, movement is blocked and momentum is cancelled, ensuring all gameplay remains within the Quidditch pitch.
 
-- Smooth elliptical geometry
-- Scalable stadium dimensions
-- Reduced manual vertex specification
-- Consistent symmetry
+### 4. Parametric Stadium Geometry
 
----
+The stadium layout is generated using parametric equations based on trigonometric functions:
 
-### Texture Mapping
-
-Planar texture mapping is applied to the pitch and goal areas.
-
-Example:
-
-```cpp
-u = (x + width / 2) / width;
-v = (z + length / 2) / length;
+```text
+x = r * cos(θ)
+z = r * sin(θ)
 ```
 
-Benefits:
+This approach allows the spectator stands, towers, and surrounding structures to remain perfectly symmetrical and scalable while minimizing manual vertex placement.
 
-- Even texture distribution
-- Reduced distortion
-- Seamless surface coverage
+### 5. Planar Shadow Projection
 
----
+Dynamic shadows are produced using a planar shadow projection matrix derived from the ground plane equation and the current light position. Object geometry is projected onto the ground plane to create realistic shadows that change naturally as the light source moves throughout the scene.
 
-### Lighting Model
-
-The project uses OpenGL's fixed-function lighting pipeline.
-
-Components:
-
-- Ambient lighting
-- Diffuse lighting
-- Specular reflections
-
-Implemented using:
-
-```cpp
-glLightfv()
-glMaterialfv()
-glMaterialf()
-```
 
 ---
-
-### Shadow Projection
-
-The advanced technique implemented for this project is **planar shadow projection**.
-
-A shadow projection matrix is generated using:
-
-- Ground plane equation
-- Light source position
-
-The matrix projects object geometry onto the ground plane to create realistic shadows that respond dynamically to light movement.
-
----
-
-## Learning Outcomes
-
-This project demonstrates practical understanding of:
-
-- 3D Modelling
-- Coordinate Systems
-- Geometric Transformations
-- Hierarchical Modelling
-- Camera Systems
-- Perspective Projection
-- Lighting and Materials
-- Texture Mapping
-- Shadow Projection
-- OpenGL Rendering Pipeline
-- Interactive Graphics Programming
-
----
-
 
 ## Author
 
-**Prabuddha Bandara**
-
+**Prabuddha Bandara**  
 Computer Science (Hons) Undergraduate  
 Department of Statistics and Computer Science  
-Faculty of Science  
 University of Peradeniya  
-Sri Lanka
 
 **CSC3081 – Computer Graphics Individual Project (2026)**
+
+---
+
