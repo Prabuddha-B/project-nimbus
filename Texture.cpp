@@ -30,6 +30,13 @@ GLuint carBodyTexture = 0;
 GLuint carWindowTexture = 0;
 GLuint carTireTexture = 0;
 
+GLuint capeTexture = 0;
+GLuint legsTexture = 0;
+GLuint handsTexture = 0;
+GLuint headTexture = 0;
+GLuint bodyTexture = 0;
+GLuint bristlesTexture = 0;
+
 GLuint gryffindorTexture = 0;
 GLuint gryffindorRoofTexture = 0;
 GLuint gryffindorFlagTexture = 0;
@@ -352,5 +359,34 @@ void loadTextures(){
     glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR_MIPMAP_LINEAR);
     glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
   
+	// -------------------- Player Textures --------------------
+    capeTexture = SOIL_load_OGL_texture("Textures/capeTexture.png", SOIL_LOAD_AUTO, SOIL_CREATE_NEW_ID, SOIL_FLAG_MIPMAPS);
+    glBindTexture(GL_TEXTURE_2D, capeTexture);
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR_MIPMAP_LINEAR);
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
 
+    legsTexture = SOIL_load_OGL_texture("Textures/legsTexture.png", SOIL_LOAD_AUTO, SOIL_CREATE_NEW_ID, SOIL_FLAG_MIPMAPS);
+    glBindTexture(GL_TEXTURE_2D, legsTexture);
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR_MIPMAP_LINEAR);
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+
+    handsTexture = SOIL_load_OGL_texture("Textures/handsTexture.png", SOIL_LOAD_AUTO, SOIL_CREATE_NEW_ID, SOIL_FLAG_MIPMAPS);
+    glBindTexture(GL_TEXTURE_2D, handsTexture);
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR_MIPMAP_LINEAR);
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+
+    headTexture = SOIL_load_OGL_texture("Textures/headTexture.png", SOIL_LOAD_AUTO, SOIL_CREATE_NEW_ID, SOIL_FLAG_MIPMAPS);
+    glBindTexture(GL_TEXTURE_2D, headTexture);
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR_MIPMAP_LINEAR);
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+
+    bodyTexture = SOIL_load_OGL_texture("Textures/bodyTexture.png", SOIL_LOAD_AUTO, SOIL_CREATE_NEW_ID, SOIL_FLAG_MIPMAPS);
+    glBindTexture(GL_TEXTURE_2D, bodyTexture);
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR_MIPMAP_LINEAR);
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+
+    bristlesTexture = SOIL_load_OGL_texture("Textures/bristlesTexture.jpg", SOIL_LOAD_AUTO, SOIL_CREATE_NEW_ID, SOIL_FLAG_MIPMAPS);
+    glBindTexture(GL_TEXTURE_2D, legsTexture);
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR_MIPMAP_LINEAR);
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
 }

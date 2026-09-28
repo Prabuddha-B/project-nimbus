@@ -19,6 +19,14 @@ extern GLuint carBodyTexture;
 extern GLuint carWindowTexture;
 extern GLuint carTireTexture;
 
+extern GLuint capeTexture;
+extern GLuint legsTexture;
+extern GLuint handsTexture;
+extern GLuint headTexture;
+extern GLuint bodyTexture;
+extern GLuint bristlesTexture;
+
+
 extern GLuint gryffindorTexture;
 extern GLuint gryffindorRoofTexture;
 extern GLuint gryffindorFlagTexture;

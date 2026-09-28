@@ -13,6 +13,8 @@ const float PITCH_WIDTH = 60.0f;
 const float WORLD_SIZE = 2000.0f;
 const float WORLD_Y = -0.5f;
 
+extern bool lightingEnabled;
+
 // Draws the main grass field.
 void drawGround() {
 
@@ -47,9 +49,6 @@ void drawGround() {
 
     glDisable(GL_TEXTURE_2D);
 }
-
-
-
 
 
 // Draws the embankment around the pitch
@@ -128,13 +127,12 @@ void drawWorldGround() {
     glBindTexture(GL_TEXTURE_2D, dirtTexture);
     glColor3f(0.8f, 0.8f, 0.8f);
 
-    // --- NEW FIX: Kill the Specular "Shiny" Reflection ---
-    // Dirt should be matte. This completely removes the glowing cross that follows the camera.
+    // Dirt should be matte
     GLfloat matte[] = { 0.0f, 0.0f, 0.0f, 1.0f };
     glMaterialfv(GL_FRONT, GL_SPECULAR, matte);
     glMaterialf(GL_FRONT, GL_SHININESS, 0.0f);
 
-    float step = 100.0f; // Break the massive floor into chunks
+    float step = 100.0f;        // Break  floor into chunks
 
     glBegin(GL_QUADS);
     glNormal3f(0.0f, 1.0f, 0.0f);
@@ -142,7 +140,7 @@ void drawWorldGround() {
     for (float x = -WORLD_SIZE; x < WORLD_SIZE; x += step) {
         for (float z = -WORLD_SIZE; z < WORLD_SIZE; z += step) {
 
-            // Texture math divided by 40.0f to perfectly match your original 0-100 UV scale
+            
             glTexCoord2f((x + WORLD_SIZE) / 40.0f, (z + WORLD_SIZE) / 40.0f);
             glVertex3f(x, WORLD_Y, z);
 
@@ -170,7 +168,7 @@ void drawPitchBoundary() {
 
     glLineWidth(3.0f);
 
-    // Automatically connects the final vertex back to the first, creating a closed boundary
+    
 	glBegin(GL_LINE_LOOP);
 
     for (int angle = 0; angle < 360; angle++) {
@@ -287,10 +285,10 @@ void drawPerimeterMountains() {
     glColor3f(1.0f, 1.0f, 1.0f);
 }
 
-extern bool lightingEnabled;
 
+// Draws the path lights around the pitch embankment
 void drawPathLights() {
-    // Disable textures so the posts and bulbs render as solid, clean colors
+   
     glDisable(GL_TEXTURE_2D);
 
     int numLights = 16;
@@ -298,7 +296,7 @@ void drawPathLights() {
     gluQuadricNormals(quad, GLU_SMOOTH);
 
     for (int i = 0; i < numLights; i++) {
-        // Calculate an elliptical path just outside the embankment
+        
         float theta = (float)i * (3.14159f * 2.0f / numLights);
         float x = 110.0f * cos(theta);
         float z = 150.0f * sin(theta);
@@ -306,27 +304,27 @@ void drawPathLights() {
         glPushMatrix();
         glTranslatef(x, 0.0f, z);
 
-        // 1. Draw the Wooden Post
-        glColor3f(0.2f, 0.15f, 0.1f); // Dark wood color
+        //  Draw the Wooden Post
+        glColor3f(0.2f, 0.15f, 0.1f);        // Dark wood color
         glPushMatrix();
         glRotatef(-90.0f, 1.0f, 0.0f, 0.0f);
         gluCylinder(quad, 1.0f, 1.0f, 12.0f, 8, 1);
         glPopMatrix();
 
-        // 2. Draw the Glass Bulb
+        // Draw the Glass Bulb
         glTranslatef(0.0f, 13.0f, 0.0f);
 
         if (lightingEnabled) {
-            // NIGHT MODE: Turn on material emission to make the bulb glow orange/yellow
+            // NIGHT MODE
             GLfloat emission[] = { 1.0f, 0.8f, 0.1f, 1.0f };
             glMaterialfv(GL_FRONT, GL_EMISSION, emission);
         }
 
-        glColor3f(1.0f, 0.9f, 0.4f); // Bulb base color
+        glColor3f(1.0f, 0.9f, 0.4f);        // Bulb base color
         glutSolidSphere(1.8f, 16, 16);
 
         if (lightingEnabled) {
-            // NIGHT MODE: Turn emission back off immediately so it doesn't affect the ground
+            // NIGHT MODE
             GLfloat no_emission[] = { 0.0f, 0.0f, 0.0f, 1.0f };
             glMaterialfv(GL_FRONT, GL_EMISSION, no_emission);
         }

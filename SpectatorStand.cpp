@@ -228,8 +228,7 @@ void drawSeatingTiers(){
 
 
 // Draw Main Stand 
-void drawSpectatorStand()
-{
+void drawSpectatorStand(){
     drawWoodenDeck();
 
     drawInnerWall();

@@ -6,6 +6,7 @@
 #include "Camera.h"
 #include "Controls.h"
 
+// Draws a textured skydome around the camera position
 void drawSkydome() {
     glDisable(GL_FOG);
     glPushMatrix();

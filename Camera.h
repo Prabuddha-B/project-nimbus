@@ -15,3 +15,9 @@ extern bool showSun;
 
 // Handles keyboard camera movement
 void keyboard(unsigned char key, int x, int y);
+
+// Handles arrow key movement for the player
+void specialKeys(int key, int x, int y);
+
+// Handles arrow key release for the player
+void specialKeysUp(int key, int x, int y);

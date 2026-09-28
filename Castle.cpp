@@ -33,7 +33,7 @@ void drawCastle() {
     glEnable(GL_TEXTURE_2D);
     glBindTexture(GL_TEXTURE_2D, castleTexture);
 
-    // Disable lighting temporarily so the castle renders like a crisp painted backdrop
+    // Disable lighting temporarily 
     glDisable(GL_LIGHTING);
     glColor3f(1.0f, 1.0f, 1.0f);
 

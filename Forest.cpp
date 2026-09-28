@@ -10,11 +10,11 @@
 const int NUM_TREES = 1500;
 Tree forest[NUM_TREES];
 
-
+// Function to calculate the terrain height
 float getTerrainHeight(float x, float z) {
     float r = sqrt(x * x + z * z);
 
-    // The mountain technically starts blending at 800.0f
+    
     if (r < 800.0f || r > 1700.0f) {
         return -0.5f;
     }
@@ -28,6 +28,8 @@ float getTerrainHeight(float x, float z) {
     return (-5.5f) + (150.0f + noise) * blend;
 }
 
+
+// Function to initialize the forest with random tree positions, types, and scales
 void initForest() {
     for (int i = 0; i < NUM_TREES; i++) {
         float x, z;
@@ -75,6 +77,8 @@ void initForest() {
     }
 }
 
+
+// Function to draw a single 3D tree with a specified type and color offset
 void drawSingle3DTree(int type, float colorOffset) {
     GLUquadric* quad = gluNewQuadric();
     gluQuadricNormals(quad, GLU_SMOOTH);
@@ -124,6 +128,8 @@ void drawSingle3DTree(int type, float colorOffset) {
     glColor3f(1.0f, 1.0f, 1.0f);
 }
 
+
+// Function to draw the entire forest 
 void drawForest() {
     for (int i = 0; i < NUM_TREES; i++) {
         glPushMatrix();
