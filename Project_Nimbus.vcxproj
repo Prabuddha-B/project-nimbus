@@ -130,9 +130,11 @@
     <ClCompile Include="Castle.cpp" />
     <ClCompile Include="FlyingCar.cpp" />
     <ClCompile Include="Forest.cpp" />
+    <ClCompile Include="Game.cpp" />
     <ClCompile Include="GoalPost.cpp" />
     <ClCompile Include="Ground.cpp" />
     <ClCompile Include="main.cpp" />
+    <ClCompile Include="Player.cpp" />
     <ClCompile Include="Shadow.cpp" />
     <ClCompile Include="Sky.cpp" />
     <ClCompile Include="SpectatorStand.cpp" />
@@ -145,8 +147,10 @@
     <ClInclude Include="Controls.h" />
     <ClInclude Include="FlyingCar.h" />
     <ClInclude Include="Forest.h" />
+    <ClInclude Include="Game.h" />
     <ClInclude Include="GoalPost.h" />
     <ClInclude Include="Ground.h" />
+    <ClInclude Include="Player.h" />
     <ClInclude Include="Shadow.h" />
     <ClInclude Include="Sky.h" />
     <ClInclude Include="SpectatorStand.h" />

@@ -1,5 +1,6 @@
 #include<windows.h>
 #include <glut.h>
+#include <cmath>
 
 #include "Ground.h"
 #include "Camera.h"
@@ -13,6 +14,8 @@
 #include "Sky.h"
 #include "Forest.h"
 #include "FlyingCar.h"
+#include "Game.h"
+#include "Player.h"
 
 
 bool showAxes = false;
@@ -137,11 +140,41 @@ void display() {
 
     glLoadIdentity();
 
-    gluLookAt(
-        camX, camY, camZ,
-        0, 0, 0,
-        0, 1, 0
-    );
+    // ---------------- CAMERA LOGIC ----------------
+    if (cameraMode == 1) {
+        // Mode 1: Free Roam (Your original camera)
+        gluLookAt(
+            camX, camY, camZ,
+            0, 0, 0,
+            0, 1, 0
+        );
+    }
+    else if (cameraMode == 2) {
+        // Mode 2: Chase Cam (Locks behind the player)
+        // Convert player angle to radians
+        float rad = playerAngle * 3.14159f / 180.0f;
+
+        // Position camera 30 units behind and 15 units above the player
+        float chaseCamX = playerX - 30.0f * sin(rad);
+        float chaseCamZ = playerZ - 30.0f * cos(rad);
+        float chaseCamY = 15.0f;
+
+        gluLookAt(
+            chaseCamX, chaseCamY, chaseCamZ,  // Camera position
+            playerX, 5.0f, playerZ,           // Looking exactly at the player
+            0, 1, 0
+        );
+    }
+    else if (cameraMode == 3) {
+        // Mode 3: Tactical Top-Down (High in the sky, looking straight down)
+        // Note: Z is offset by 1.0f to prevent OpenGL "gimbal lock" when looking straight down
+        gluLookAt(
+            0.0f, 200.0f, 1.0f,
+            0.0f, 0.0f, 0.0f,
+            0.0f, 1.0f, 0.0f
+        );
+    }
+   
 
     // Reset the global color state to pure white at the start of every frame
     glColor3f(1.0f, 1.0f, 1.0f);
@@ -186,6 +219,7 @@ void display() {
     drawPathLights();
 	drawForest();
     drawFlyingCar();
+	drawPlayer();
     drawEmbankment();
     drawGround();
     drawSpectatorStand();
@@ -286,6 +320,7 @@ int main(int argc, char** argv)
     glutDisplayFunc(display);
     glutReshapeFunc(reshape);
     glutKeyboardFunc(keyboard);
+	glutSpecialFunc(specialKeys);
     glutIdleFunc(display);
 	glutIdleFunc(idle);
 
