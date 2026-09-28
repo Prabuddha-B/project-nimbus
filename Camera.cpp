@@ -8,21 +8,26 @@
 #include "Tower.h"
 #include "Game.h"
 
+
 // Camera position coordinates.
 float camX = 0.0f;
 float camY = 60.0f;
 float camZ = 180.0f;
 
+
 // Show / Hide Sun sphere
 bool showSun = true;
+
 
 // Sun light position
 float sunX = 50.0f;
 float sunY = 80.0f;
 float sunZ = 50.0f;
 
+
 // Tower light state
 bool isTowerLightOn = false;
+
 
 // Handles keyboard camera movement.
 void keyboard(unsigned char key, int x, int y){
@@ -122,48 +127,31 @@ void keyboard(unsigned char key, int x, int y){
         break;
     }
 
-
+    if (key == 'r' || key == 'R') {
+        resetGame();
+    }
     
-
-
     glutPostRedisplay();
 }
 
 
-// Handles arrow key movement for the player
+// Triggers when an arrow key is pressed DOWN
 void specialKeys(int key, int x, int y) {
-    // Only allow the player to fly if the game has officially started (State 1)
-    if (gameState != 1) return;
-
-    float speed = 2.0f;
-    float turnSpeed = 5.0f;
-
-    // Convert angle to radians for math
-    float rad = playerAngle * 3.14159f / 180.0f;
-
     switch (key) {
-    case GLUT_KEY_UP:
-        // Push forward in the exact direction the player is facing
-        playerX -= speed * sin(rad);
-        playerZ -= speed * cos(rad);
-        break;
-
-    case GLUT_KEY_DOWN:
-        // Reverse
-        playerX += speed * sin(rad);
-        playerZ += speed * cos(rad);
-        break;
-
-    case GLUT_KEY_LEFT:
-        // Turn left
-        playerAngle += turnSpeed;
-        break;
-
-    case GLUT_KEY_RIGHT:
-        // Turn right
-        playerAngle -= turnSpeed;
-        break;
+    case GLUT_KEY_UP:    keyUp = true;    break;
+    case GLUT_KEY_DOWN:  keyDown = true;  break;
+    case GLUT_KEY_LEFT:  keyLeft = true;  break;
+    case GLUT_KEY_RIGHT: keyRight = true; break;
     }
+}
 
-    glutPostRedisplay();
+
+// Triggers when an arrow key is RELEASED
+void specialKeysUp(int key, int x, int y) {
+    switch (key) {
+    case GLUT_KEY_UP:    keyUp = false;    break;
+    case GLUT_KEY_DOWN:  keyDown = false;  break;
+    case GLUT_KEY_LEFT:  keyLeft = false;  break;
+    case GLUT_KEY_RIGHT: keyRight = false; break;
+    }
 }

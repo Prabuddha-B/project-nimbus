@@ -16,3 +16,23 @@ extern int cameraMode;
 extern float playerX;
 extern float playerZ;
 extern float playerAngle; // Which way the player is facing
+
+// Snitch positional data
+extern float snitchX;
+extern float snitchZ;
+
+// Smooth Physical Variables for Player Movement
+extern bool keyUp;
+extern bool keyDown;
+extern bool keyLeft;
+extern bool keyRight;
+extern float currentSpeed;
+
+// Checks if a given X and Z coordinate is inside the elliptical pitch
+bool isInsidePitch(float targetX, float targetZ);
+
+// Physics update loop
+void updatePlayerMovement();
+
+// Resets all game variables for a new round
+void resetGame();

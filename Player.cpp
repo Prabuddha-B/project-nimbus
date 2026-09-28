@@ -8,6 +8,8 @@
 
 extern bool lightingEnabled;
 
+
+// Draw the player model
 void drawPlayer() {
     glPushMatrix();
 
@@ -225,7 +227,6 @@ void drawPlayer() {
     gluDeleteQuadric(quad);
 
     if (lightingEnabled) {
-        // THE FIX: Turn off the massive specular glare and reset shininess
         GLfloat defaultSpecular[] = { 0.0f, 0.0f, 0.0f, 1.0f };
         glMaterialfv(GL_FRONT, GL_SPECULAR, defaultSpecular);
         glMaterialf(GL_FRONT, GL_SHININESS, 50.0f);

@@ -7,8 +7,10 @@
 
 extern bool lightingEnabled;
 
+
 // Helper function to draw a 3D box 
 void drawTexturedBox(float w, float h, float d) {
+
     glBegin(GL_QUADS);
 
     // Front Face
@@ -55,6 +57,8 @@ void drawTexturedBox(float w, float h, float d) {
     glEnd();
 }
 
+
+// Build the flying car model
 void buildCarModel() {
 
     // Lower Chassis
@@ -92,12 +96,12 @@ void buildCarModel() {
 
         // Draw the Tread 
         glBindTexture(GL_TEXTURE_2D, metalTexture);
-        glColor3f(0.15f, 0.15f, 0.15f); // Dark rubber color
+        glColor3f(0.15f, 0.15f, 0.15f);                 // Dark rubber color
         gluCylinder(quad, 1.0f, 1.0f, 0.8f, 16, 1);
 
         // Draw the Hubcap Faces 
         glBindTexture(GL_TEXTURE_2D, carTireTexture);
-        glColor3f(1.0f, 1.0f, 1.0f); // Reset to pure white so the chrome shines
+        glColor3f(1.0f, 1.0f, 1.0f);            // Reset to pure white 
 
         // Outer Face
         glPushMatrix();
@@ -165,6 +169,8 @@ void buildCarModel() {
     glColor3f(1.0f, 1.0f, 1.0f);
 }
 
+
+// Function to animate and draw the flying car 
 void drawFlyingCar() {
 
     // Only appear in Night Mode
@@ -196,7 +202,7 @@ void drawFlyingCar() {
     glRotatef(sin(time * 3.0f) * 10.0f, 1.0f, 0.0f, 0.0f);
     glRotatef(cos(time * 2.0f) * 15.0f, 0.0f, 0.0f, 1.0f);
 
-    // Massive scale multiplier
+    //  scale multiplier
     glScalef(2.5f, 2.5f, 2.5f);
 
     buildCarModel();
